@@ -1,6 +1,6 @@
 // Leaflet Map
 
-const map = L.map('map').setView([53.342686, -6.267118], 13);
+const map = L.map('map').setView([18.35273, -66.04579], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
