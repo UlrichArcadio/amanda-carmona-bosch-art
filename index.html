@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Portfolio Website</title>
+    <title>Portfolio</title>
 
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -23,10 +23,10 @@
 <body>
 <div class="container-fluid px-0">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <!--<span class="material-icons-outlined me-1">important_devices</span>-->
+            <a class="navbar-brand" href="#">
+
                 Amanda Carmona Bosch
             </a>
             <button
@@ -44,19 +44,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="/">Home</a>
+                            <a class="nav-link me-lg-3" href="works.html">Works</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="#about">About</a>
+                            <a class="nav-link me-lg-3" href="biography.html">Biography</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="#projects">Works</a>
+                            <a class="nav-link me-lg-3" href="press.html">Press</a>
                         </li>
-                       <!-- <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="#testimonials">Testimonials</a>
-                        </li>-->
                         <li class="nav-item">
-                            <a class="nav-link me-lg-3" href="#contact">Contact</a>
+                            <a class="nav-link me-lg-3" href="contact.html">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -66,275 +63,26 @@
     <!-- End Navbar -->
 
     <!-- Hero -->
-    <header class="bg-light py-5">
-        <div class="container px-5">
-            <div class="row align-items-center">
-                <div class="col-lg-8 col-xl-7 col-xxl-6">
-                    <div class="my-5">
-                        <h2 class="text-center fw-bold mb-2">UPS!</h2>
-                        <h2 class="text-primary text-center fw-bold mb-2">This webpage is under construction</h2>
-                        <p class="lead text-muted mb-4">
-                            This will be the portfolio website of the puertorrican painter Amanda Carmona Bosch
-                        </p>
-                        <!--<div class="d-grid gap-3 d-sm-flex justify-content-center">
-                            <a class="btn btn-primary btn-large text-uppercase" href="#about">
-                                Learn More
-                                <span class="material-icons-outlined ms-2">help_outline</span>
-                            </a>
-                            <a class="btn btn-outline-primary btn-large text-uppercase" href="#projects">
-                                View My Work
-                                <span class="material-icons-outlined ms-2">manage_search</span>
-                            </a>
-                        </div>-->
-                    </div>
-                </div>
-                <div class="col-xl-5 col-xxl-6 justify-content-center">
-                    <img class="img-fluid rounded-3 my-5" src="images/Ueberleben-Violeta.jpg" alt="Hero Image">
-                </div>
+    <header class="light py-5">
+        <div class="container mt-3">
+            <h3>
+                upcoming exhibit:
+                <small class="text-muted">War, survival, pain and death <br> – solo show at La Liga de Arte de San Juan, Puerto Rico – January 2025</small>
+            </h3>
+
+            <img class="img-fluid" src="images/To-die-for.jpg" alt="New York" width=100% height=auto>
+
+            <div class="card-body">
+                <h5 class="card-title">To die for</h5>
+                <p class="card-text">1997</p>
+                <p class="card-text">Oil on linen canvas, 76cm x 182cm</p>
             </div>
+
         </div>
     </header>
-    <!--
 
      <main>
 
-        <section id="about" class="text-center py-5">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <h2 class="fw-bold">About</h2>
-                    <p class="lead text-muted mb-5">
-                        I am a freelance web developer who builds elegant, fast, and
-                        scalable web applications.
-                    </p>
-                </div>
-            </div>
-            <div class="container mb-5">
-                <div class="row">
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="d-flex mb-5 about">
-                            <span class="material-icons-outlined m-auto text-primary">p</span>
-                        </div>
-                        <h5>A</h5>
-                        <p class="text-muted mb-0">
-                            I
-                        </p>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="d-flex mb-5 about">
-                            <span class="material-icons-outlined m-auto text-primary">c</span>
-                        </div>
-                        <h5>B</h5>
-                        <p class="text-muted mb-0">
-                            II
-                        </p>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="d-flex mb-5 about">
-                            <span class="material-icons-outlined m-auto text-primary">s</span>
-                        </div>
-                        <h5>C</h5>
-                        <p class="text-muted mb-0">
-                           III
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <hr>
-
-
-        <section id="projects" class="text-center py-5">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <h2 class="fw-bold">P</h2>
-                    <p class="lead text-muted mb-5">View some of my latest projects</p>
-                </div>
-            </div>
-            <div class="container mb-5">
-                <div class="row">
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="card h-100 shadow-lg border-0 bg-light">
-                            <img class="card-img-top" src="images/project1.png" alt="Project 1">
-                            <div class="card-body p-4">
-                                <h5 class="card-title mb-3">Cryptocurrency Dashboard</h5>
-                                <div class="mb-2">
-                                    <div class="badge bg-primary rounded-pill">Django</div>
-                                    <div class="badge bg-primary rounded-pill">React</div>
-                                    <div class="badge bg-primary rounded-pill">Material UI</div>
-                                </div>
-                                <p class="card-text">
-                                    A cryptocurrency dashboard app built using React 17,
-                                    Material UI 5 and Chart.js 3.
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent mb-3">
-                                <a
-                                        class="btn btn-outline-primary btn-sm text-uppercase"
-                                        href="https://github.com/BobsProgrammingAcademy/cryptocurrency-dashboard"
-                                        target="_blank"
-                                >
-                                    <span class="material-icons-outlined me-1">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="card h-100 shadow-lg border-0 bg-light">
-                            <img class="card-img-top" src="images/project2.png" alt="Project 2">
-                            <div class="card-body p-4">
-                                <h5 class="card-title mb-3">Portfolio Website</h5>
-                                <div class="mb-2">
-                                    <div class="badge bg-primary rounded-pill">Django</div>
-                                    <div class="badge bg-primary rounded-pill">React</div>
-                                    <div class="badge bg-primary rounded-pill">Material UI</div>
-                                </div>
-                                <p class="card-text">
-                                    A portfolio website built using Django 3, Next.js 12 and
-                                    Material UI 5 that uses a PostgreSQL database to store
-                                    data.
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent mb-3">
-                                <a
-                                        class="btn btn-outline-primary btn-sm text-uppercase"
-                                        href="https://github.com/BobsProgrammingAcademy/portfolio-website"
-                                        target="_blank"
-                                >
-                                    <span class="material-icons-outlined me-1">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="card h-100 shadow-lg border-0 bg-light">
-                            <img class="card-img-top" src="images/project3.png" alt="Project 3">
-                            <div class="card-body p-4">
-                                <h5 class="card-title mb-3">Image Classification</h5>
-                                <div class="mb-2">
-                                    <div class="badge bg-primary rounded-pill">Django</div>
-                                    <div class="badge bg-primary rounded-pill">React</div>
-                                    <div class="badge bg-primary rounded-pill">Material UI</div>
-                                </div>
-                                <p class="card-text">
-                                    An image classification app built using TensorFlow 2,
-                                    Django 3, React 17 and Material UI 5.
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent mb-3">
-                                <a
-                                        class="btn btn-outline-primary btn-sm text-uppercase"
-                                        href="https://github.com/BobsProgrammingAcademy/image-classification-mnist"
-                                        target="_blank"
-                                >
-                                    <span class="material-icons-outlined me-1">code</span>
-                                    Source Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <hr>
-
-
-        <section id="testimonials" class="text-center py-5">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <h2 class="fw-bold">Testimonials</h2>
-                    <p class="lead text-muted mb-5">Check what clients have said about my work</p>
-                </div>
-            </div>
-            <div class="container mb-5">
-                <div class="row">
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="text-center fs-4 fst-italic mb-4 px-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                            quis elit ut tellus tempus pharetra.
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center testimonial">
-                            <img class="rounded-circle me-3" src="images/user1.png" alt="User 1">
-                            <div class="fw-bold">
-                                Amy Jones
-                                <span class="text-primary mx-1">/</span>
-                                CEO, Company 1
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="text-center fs-4 fst-italic mb-4 px-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                            quis elit ut tellus tempus pharetra.
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center testimonial">
-                            <img class="rounded-circle me-3" src="images/user2.png" alt="User 2">
-                            <div class="fw-bold">
-                                James Smith
-                                <span class="text-primary mx-1">/</span>
-                                CEO, Company 2
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mx-auto mb-5">
-                        <div class="text-center fs-4 fst-italic mb-4 px-2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                            quis elit ut tellus tempus pharetra.
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center testimonial">
-                            <img class="rounded-circle me-3" src="images/user3.png" alt="User 3">
-                            <div class="fw-bold">
-                                Mary Richards
-                                <span class="text-primary mx-1">/</span>
-                                CEO, Company 3
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>-->
-
-
-        <hr>
-
-
-        <section id="contact" class="text-center py-5">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <h2 class="fw-bold">Contact</h2>
-                    <p class="lead text-muted mb-5">
-                         I would love to hear from you.
-                    </p>
-                </div>
-            </div>
-            <div class="container mb-5">
-                <div class="row">
-                    <div class="col-xl-5 col-xxl-6 mb-5">
-                        <div id="map"></div>
-                    </div>
-                    <div class="col-lg-8 col-xl-7 col-xxl-6 mb-5">
-                        <div class="mb-5">
-                            <h6 class="text-uppercase mb-2">Address</h6>
-                            <p class="lead mb-0">San Juan, Puerto Rico</p>
-                        </div>
-                      <!--  <div class="mb-5">
-                            <h6 class="text-uppercase mb-2">Phone</h6>
-                            <p class="lead mb-0"></p>
-                        </div>-->
-                        <div class="mb-5">
-                            <h6 class="text-uppercase mb-2">Email</h6>
-                            <p class="lead mb-0">carmonabosch@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Contact -->
     </main>
 </div>
 
