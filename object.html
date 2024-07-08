@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Object</title>
 
     <!-- Montserrat Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -74,6 +74,7 @@
 
 
             <div class="col">
+                <a data-bs-toggle="modal" data-bs-target="#objectModal" data-bs-slide-to="0">
                 <div class="card border-0">
                     <img src="images/Perspectiva-1-1996-compressor.jpg" class="img" alt="...">
                     <div class="card-body">
@@ -81,9 +82,11 @@
                         <p class="card-text">object, series</p>
                     </div>
                 </div>
+                </a>
             </div>
 
             <div class="col">
+                <a data-bs-toggle="modal" data-bs-target="#objectModal" data-bs-slide-to="1">
                 <div class="card border-0">
                     <img src="images/Diana-1995-acero-compressor.jpg" class="img" alt="...">
                     <div class="card-body">
@@ -91,12 +94,41 @@
                         <p class="card-text">object, series</p>
                     </div>
                 </div>
+                </a>
             </div>
 
 
         </div>
         <div style="margin-top: 100px;"></div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="objectModal" tabindex="-1" aria-labelledby="objectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div id="carouselObjectControl" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                    <div class="carousel-inner overflow-hidden">
+                        <div class="carousel-item active">
+                            <img src="images/Perspectiva-1-1996-compressor.jpg" class="d-block w-100" alt="">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/Diana-1995-acero-compressor.jpg" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselObjectControl" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselObjectControl" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end Modal-->
+
     <hr>
 </div>
 <!-- Footer -->
@@ -105,13 +137,12 @@
 </footer>
 <!-- End Footer -->
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Custom JS -->
-<script src="js/scripts.js"></script>
+<script src="js/scriptsObject.js"></script>
 </body>
 </html>
