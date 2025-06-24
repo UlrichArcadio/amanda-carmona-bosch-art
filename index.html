@@ -21,6 +21,31 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Im <head> ergänzen oder in css/styles.css -->
+    <style>
+        body {
+            font-size: 0.95rem;
+        }
+        .img-fluid {
+            max-width: 75%;
+            height: auto;
+        }
+        .py-5 {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+        .mt-3, .mt-4, .mt-lg-5 {
+            margin-top: 1rem !important;
+        }
+
+        @media (min-width: 992px) {
+            .lower-header {
+                margin-top: 5rem !important; /* Passe den Wert nach Bedarf an */
+            }
+        }
+    </style>
+
 </head>
 <body>
 <div class="container-fluid px-0">
@@ -52,13 +77,13 @@
                     </header>
                 </header>
             </div>
-            <div class="col-lg-6 mt-4 mt-lg-5">
+            <div class="col-lg-6 mt-4 mt-lg-5 lower-header">
                 <!-- Zweiter Header -->
                 <header class="light py-5">
                     <header class="light py-5">
                         <div class="container mt-3">
 
-                            <h3>26.10.2026 - 28.01.2026</h3>
+                            <h3>08.10.2026 - 28.01.2026</h3>
 
                             <h3><em>EL CUERPO, REBELARSE O REVELARSE</em></h3>
 
