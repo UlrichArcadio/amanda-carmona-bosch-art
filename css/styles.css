@@ -113,3 +113,19 @@ body {
         text-decoration: none !important;
     }
 }
+
+.obra-link {
+    color: #888 !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    background: #fff;
+    display: block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+}
+.obra-link:hover,
+.obra-link:focus {
+    color: #000 !important;
+    text-decoration: none !important;
+}
