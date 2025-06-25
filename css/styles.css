@@ -64,19 +64,52 @@ body {
     }
 }
 
-
-
-.series-links a.text-secondary:hover {
-    color: #000 !important;
-    text-decoration: underline;
+@media (max-width: 767.98px) {
+    .mobile-link {
+        color: #a5a3a3 !important; /* Grau */
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none !important; /* Keine Unterstreichung */
+    }
+    .mobile-link:hover,
+    .mobile-link:focus {
+        color: #000 !important; /* Schwarz beim Hover */
+        text-decoration: none !important; /* Auch beim Hover keine Unterstreichung */
+    }
 }
 
-/* Links grau, beim Hover schwarz */
-.series-list .nav-link {
-    color: #888888 !important; /* Grau */
-    transition: color 0.2s;
+@media (min-width: 768px) {
+    .series-list .nav-link {
+        color: #888 !important; /* Grau */
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none !important;
+    }
+    .series-list .nav-link:hover,
+    .series-list .nav-link:focus {
+        color: #000 !important; /* Schwarz beim Hover */
+        text-decoration: none !important;
+    }
 }
-.series-list .nav-link:hover,
-.series-list .nav-link:focus {
-    color: #000000 !important; /* Schwarz beim Hover */
+
+
+
+@media (max-width: 767.98px) {
+    body {
+        padding-top: 56px; /* Nur Höhe der Navbar */
+    }
+    .series-list {
+        display: none !important;
+    }
+    .mobile-link {
+        color: #888 !important; /* Grau */
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none !important;
+    }
+    .mobile-link:hover,
+    .mobile-link:focus {
+        color: #000 !important; /* Schwarz beim Hover */
+        text-decoration: none !important;
+    }
 }
