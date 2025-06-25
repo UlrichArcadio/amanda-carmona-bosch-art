@@ -129,3 +129,16 @@ body {
     color: #000 !important;
     text-decoration: none !important;
 }
+
+body {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+#navbar-container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+nav.navbar {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
