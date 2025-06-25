@@ -35,3 +35,48 @@ body {
 #map {
     height: 300px;
 }
+.series-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.series-list {
+    min-width: 180px;
+    max-width: 220px;
+}
+
+.series-cards {
+    flex: 1 1 0;
+}
+
+.series-cards .card {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .series-layout {
+        flex-direction: column;
+    }
+    .series-list {
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+
+
+.series-links a.text-secondary:hover {
+    color: #000 !important;
+    text-decoration: underline;
+}
+
+/* Links grau, beim Hover schwarz */
+.series-list .nav-link {
+    color: #888888 !important; /* Grau */
+    transition: color 0.2s;
+}
+.series-list .nav-link:hover,
+.series-list .nav-link:focus {
+    color: #000000 !important; /* Schwarz beim Hover */
+}
