@@ -17,12 +17,45 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var lastScrollTop = 0;
+            var mobileNav = document.querySelector('nav.d-block.d-md-none');
+            window.addEventListener('scroll', function() {
+                var st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > lastScrollTop) {
+                    // Nach unten scrollen: ausblenden
+                    mobileNav.style.transform = 'translateY(-100%)';
+                    mobileNav.style.transition = 'transform 0.3s';
+                } else {
+                    // Nach oben scrollen: einblenden
+                    mobileNav.style.transform = 'translateY(0)';
+                    mobileNav.style.transition = 'transform 0.3s';
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            }, false);
+        });
+    </script>
+
 </head>
+<div id="navbar-container" class="fixed-top"></div>
 <body>
+
+<!-- Navbar -->
+
+<!-- Mobile Linkbar direkt darunter -->
+<nav class="d-block d-md-none sticky-top bg-light border-bottom" style="z-index:1050;">
+    <ul class="nav flex-row justify-content-around py-2">
+        <li class="nav-item"><a class="nav-link mobile-link" href="collage.html">COLLAGE</a></li>
+        <li class="nav-item"><a class="nav-link mobile-link" href="drawing.html">DIBUJO</a></li>
+        <li class="nav-item"><a class="nav-link mobile-link" href="graphic.html">GRAFICA</a></li>
+        <li class="nav-item"><a class="nav-link mobile-link" href="object.html">OBJETO</a></li>
+        <li class="nav-item"><a class="nav-link mobile-link" href="pintura.html">PINTURA</a></li>
+        <li class="nav-item"><a class="nav-link mobile-link" href="sculpture.html">ESCULTURA</a></li>
+    </ul>
+</nav>
 <div class="container-fluid px-0">
-    <!-- Navbar -->
-    <div id="navbar-container"></div>
-    <!-- End Navbar -->
 
     <!-- Hero -->
     <header class="light py-5">
