@@ -142,3 +142,10 @@ nav.navbar {
     margin-top: 0 !important;
     padding-top: 0 !important;
 }
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1rem !important;
+        white-space: nowrap;
+    }
+}
