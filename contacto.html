@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMANDA CARMONA BOSCH - PÁGINA DE INICIO</title>
+    <title>AMANDA CARMONA BOSCH - CONTACTO</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -91,26 +91,58 @@
             text-decoration: none;
             width: 100%;
             text-align: center;
+            /* Default color and hover for mobile links handled by Tailwind classes below */
         }
 
-        /* Poster specific styles for index.html */
-        .poster-container {
-            width: 100%;
-            max-width: 400px; /* Adjust as needed */
+        /* Contact page specific styles */
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            max-width: 800px; /* Limit width for better readability */
             margin: auto;
-            text-align: center;
         }
-        .poster-image {
+        .contact-image {
             width: 100%;
             height: auto;
-            object-fit: contain;
+            object-fit: cover;
+            border-radius: 8px;
         }
-        .lower-header {
-            margin-top: 4rem; /* Adjust this value to control how much lower the second header is */
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            text-align: center;
         }
-        @media (min-width: 1024px) { /* lg breakpoint */
-            .lower-header {
-                margin-top: 5rem; /* Further adjust for larger screens if needed */
+        .contact-location-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        .contact-location-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive adjustments for contact page */
+        @media (min-width: 640px) { /* sm breakpoint */
+            .contact-row {
+                flex-direction: row;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+            }
+            .contact-col-image {
+                flex: 1;
+            }
+            .contact-col-email {
+                flex: 1;
             }
         }
     </style>
@@ -133,7 +165,7 @@
     <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
     <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
     <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
-    <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+    <a href="contacto.html" class="nav-link uppercase text-black hover:text-black">CONTACTO</a>
 </nav>
 
 <!-- Desktop Layout: Sidebar + Main Content -->
@@ -146,36 +178,24 @@
             <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
             <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
             <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
-            <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+            <a href="contacto.html" class="nav-link uppercase text-black hover:text-black">CONTACTO</a>
         </nav>
     </aside>
 
-    <!-- Main Content Area (Landing Page Specific) -->
-    <main class="artworks-content-area flex-grow flex flex-col items-center justify-start p-6 md:p-10 ml-0 md:ml-16">
-        <div class="container mt-3">
-            <div class="row flex flex-col lg:flex-row justify-center items-start gap-8">
-                <div class="col-lg-6 w-full lg:w-1/2">
-                    <!-- Erster Header -->
-                    <div class="poster-container">
-                        <h3 class="text-lg font-semibold mb-2">05.06.2025 - 11.07.2025</h3>
-                        <h3 class="text-xl font-bold mb-2"><em>PUERTO RICAN WOMEN IN ARTS</em></h3>
-                        <h5 class="text-gray-600 text-sm mb-4">GALERÍA DELTA DE PICO, LIGA DE ARTE DE SAN JUAN</h5>
-                        <img class="poster-image" src="images/exhibiciones-actuales/puertorican-woman-in-arts.jpeg" alt="PUERTO RICAN WOMEN IN ARTS">
-                    </div>
+    <!-- Contacto Main Content -->
+    <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
+        <div class="contact-section">
+            <div class="contact-row w-full">
+                <div class="contact-col-image w-full sm:w-1/2">
+                    <img src="images/taller/puerta-taller-a.jpg" class="contact-image" alt="PUERTA DEL TALLER">
                 </div>
-                <div class="col-lg-6 w-full lg:w-1/2 lower-header">
-                    <!-- Zweiter Header -->
-                    <div class="poster-container">
-                        <h3 class="text-lg font-semibold mb-2">08.10.2026 - 28.01.2026</h3>
-                        <h3 class="text-xl font-bold mb-2"><em>EL CUERPO, REBELARSE O REVELARSE</em></h3>
-                        <h5 class="text-gray-600 text-sm mb-4">MUSEO DE LAS AMÉRICAS, SAN JUAN, PUERTO RICO</h5>
-                        <img class="poster-image" src="images/weighting-love-or-gold/Madre-acuarela-1978-80-23x15.5cm-scaled.jpg" alt="AMAMANTAR">
-                        <div class="card-body">
-                            <h5 class="text-base font-semibold mt-2">AMAMANTAR<BR>1978, ACUARELA, 23 CM X 15.5 CM</h5>
-                        </div>
-                    </div>
+                <div class="contact-col-email w-full sm:w-1/2 flex justify-center items-center">
+                    <h4 class="contact-email">CARMONABOSCH@GMAIL.COM</h4>
                 </div>
             </div>
+            <br>
+            <img src="images/taller/Tallr-Cupey-Alto-scaled.jpg" class="contact-location-image" alt="TALLER CUPEY ALTO">
+            <h3 class="contact-location-title"><strong>TALLER A</strong>, SAN JUAN</h3>
         </div>
     </main>
 </div>
@@ -184,6 +204,19 @@
 <footer class="p-6 md:p-8 bg-white shadow-sm text-center text-gray-500 text-sm">
     AMANDA CARMONA BOSCH
 </footer>
+
+<!-- Full-page Image Carousel Overlay (not used in contact, but kept for consistency) -->
+<div id="carouselOverlay" class="carousel-overlay">
+    <span class="carousel-close" id="carouselClose">&times;</span>
+    <button class="carousel-nav-arrow left" id="carouselPrev">&lt;</button>
+    <div class="carousel-content">
+        <div class="carousel-image-wrapper">
+            <img src="" alt="Carousel Image" class="carousel-image" id="carouselImage">
+        </div>
+        <div class="carousel-info" id="carouselInfo"></div>
+    </div>
+    <button class="carousel-nav-arrow right" id="carouselNext">&gt;</button>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

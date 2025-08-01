@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMANDA CARMONA BOSCH - COLLAGE</title>
+    <title>AMANDA CARMONA BOSCH - BIOGRAFÍA</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -94,38 +94,38 @@
             /* Default color and hover for mobile links handled by Tailwind classes below */
         }
 
-        /* Image gallery specific styles */
+        /* Image gallery specific styles for exhibition cards (not used in biography, but kept for consistency) */
         .image-gallery-item {
-            flex-shrink: 0; /* Prevent items from shrinking */
-            width: 200px; /* Fixed width for gallery items */
-            height: 150px; /* Fixed height for gallery items */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-radius: 4px; /* Slightly rounded corners */
-            cursor: pointer; /* Indicate clickable */
+            flex-shrink: 0;
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
         }
         .image-gallery-container {
-            overflow-x: auto; /* Enable horizontal scrolling */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
-            -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
         .image-gallery-container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+            display: none;
         }
 
-        /* Carousel Overlay Styles */
+        /* Carousel Overlay Styles (not directly used in biography, but kept for consistency) */
         .carousel-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.98); /* Near-opaque white */
+            background-color: rgba(255, 255, 255, 0.98);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 100; /* High z-index to cover everything */
+            z-index: 100;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -136,25 +136,24 @@
         }
         .carousel-content {
             display: flex;
-            flex-direction: column; /* Stack image and info vertically */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 90%;
             height: 80%;
             position: relative;
         }
-        /* New container for the carousel image to ensure consistent size and margin */
         .carousel-image-wrapper {
-            width: 60vw; /* Example fixed width, adjust as needed */
-            height: 70vh; /* Example fixed height, adjust as needed */
-            background-color: white; /* White background for the margin effect */
+            width: 60vw;
+            height: 70vh;
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .carousel-image {
-            max-width: 90%; /* Image takes up 90% of wrapper, leaving 5% margin on each side */
-            max-height: 90%; /* Image takes up 90% of wrapper, leaving 5% margin on top/bottom */
+            max-width: 90%;
+            max-height: 90%;
             object-fit: contain;
         }
         .carousel-nav-arrow {
@@ -218,7 +217,7 @@
             }
         }
 
-        /* Mobile-specific gallery image display */
+        /* Mobile-specific gallery image display (not used in biography, but kept for consistency) */
         @media (max-width: 768px) {
             .image-gallery-container .image-gallery-item:not(:first-child) {
                 display: none;
@@ -233,6 +232,44 @@
                 max-width: 300px;
                 max-height: 250px;
             }
+        }
+
+        /* Biography specific styles */
+        .biography-image-container {
+            width: 80%; /* Match width=80% from original file */
+            height: auto;
+            margin-top: 1.5rem; /* mt-3 */
+            margin-bottom: 1rem; /* Space before caption */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .biography-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .biography-image-caption {
+            font-size: 0.875rem; /* card-text */
+            color: #666;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        .biography-section-content {
+            margin-bottom: 2rem; /* Spacing between sections */
+        }
+        .biography-text {
+            font-size: 1rem; /* Default paragraph size */
+            line-height: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .biography-sub-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 1rem; /* Indent slightly */
+        }
+        .biography-sub-list li {
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -250,22 +287,19 @@
 <!-- Mobile Menu Overlay -->
 <nav class="mobile-menu" id="mobileMenu">
     <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>
-
-    <a href="obras.html" class="nav-link uppercase text-black hover:text-black">OBRAS DE ARTE</a>
+    <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
     <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
-    <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+    <a href="biografia.html" class="nav-link uppercase text-black hover:text-black">BIOGRAFÍA</a>
     <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
     <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
     <!-- Divider for mobile menu -->
     <div class="border-t-4 border-gray-300 pt-4 mt-4 w-full"></div>
     <nav class="flex flex-col space-y-2 mt-4">
-        <a href="obras.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">SERIES</a>
-        <a href="collage.html" class="nav-link text-xs uppercase text-black hover:text-black pl-4">COLLAGE</a>
-        <a href="dibujo.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">DIBUJO</a>
-        <a href="grafica.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">GRÁFICA</a>
-        <a href="objeto.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">OBJETO</a>
-        <a href="pintura.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">PINTURA</a>
-        <a href="escultura.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">ESCULTURA</a>
+        <a href="#biografia-section" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">BIOGRAFÍA</a>
+        <a href="#awards" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">PREMIOS</a>
+        <a href="#works-in-collections" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">OBRAS EN COLECCIONES</a>
+        <a href="#talks-lectures" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">CONFERENCIAS Y PONENCIAS</a>
+        <a href="#texts" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">TEXTOS</a>
     </nav>
 </nav>
 
@@ -275,76 +309,84 @@
     <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">
         <a href="obras.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>
         <nav class="flex flex-col space-y-4">
-            <a href="obras.html" class="nav-link uppercase text-black hover:text-black">OBRAS DE ARTE</a>
+            <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
             <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
-            <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+            <a href="biografia.html" class="nav-link uppercase text-black hover:text-black">BIOGRAFÍA</a>
             <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
             <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
         </nav>
 
-        <!-- Divider and Collage Sub-links -->
+        <!-- Divider and Biografía Sub-links -->
         <div class="border-t-4 border-gray-300 pt-4 mt-4 w-full"></div>
         <nav class="flex flex-col space-y-2 mt-4">
-            <a href="obras.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">SERIES</a>
-            <a href="collage.html" class="nav-link text-xs uppercase text-black hover:text-black pl-4">COLLAGE</a>
-            <a href="dibujo.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">DIBUJO</a>
-            <a href="grafica.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">GRÁFICA</a>
-            <a href="objeto.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">OBJETO</a>
-            <a href="pintura.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">PINTURA</a>
-            <a href="escultura.html" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">ESCULTURA</a>
+            <a href="#biografia-section" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">BIOGRAFÍA</a>
+            <a href="#awards" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">PREMIOS</a>
+            <a href="#works-in-collections" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">OBRAS EN COLECCIONES</a>
+            <a href="#talks-lectures" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">CONFERENCIAS Y PONENCIAS</a>
+            <a href="#texts" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">TEXTOS</a>
         </nav>
     </aside>
 
-    <!-- Collage Main Content -->
+    <!-- Biografía Main Content -->
     <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
-        <!-- INTUITION -->
-        <section id="intuition" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">INTUITION</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" alt="INTUITION" class="image-gallery-item" data-full-src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" data-info="INTUITION<BR>SOBRE LA DUDA SERIES<BR>2009, OIL AND COLLAGE ON COTTON CANVAS, 35&#8243;X47&#8243;">
+        <div class="container mt-3">
+            <div class="biography-image-container">
+                <img class="biography-image" src="images/Dale-que-te-pego-en-Calle-San-Jorge-scaled.jpg" alt="ATELIER">
+                <p class="biography-image-caption">FOTO MIGUEL NAZARIO</p>
             </div>
-        </section>
 
-        <!-- MISCARRIAGE -->
-        <section id="miscarriage" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">MISCARRIAGE</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/the-shape-of-thoght/Miscarriage-1995-collage-compressor.jpg" alt="MISCARRIAGE" class="image-gallery-item" data-full-src="images/the-shape-of-thoght/Miscarriage-1995-collage-compressor.jpg" data-info="MISCARRIAGE<BR>THE SHAPE OF THOUGHT SERIES<BR>1995, OIL CRAYONS ON RAG PAPER, MOUNTED ON FOAMCORE, 52&#8243; 38&#8243;">
+            <div class="biography-section-content" id="biografia-section">
+                <h2 class="text-xl font-bold mb-4 px-2">BIOGRAFÍA</h2>
+                <p class="biography-text">Amanda Carmona Bosch (Puerto Rico,1956) comenzó su educación en arte a los once años. Como universitaria estudió bajo la tutela de la Maestra Luisa Géigel Brunet en la Universidad de Puerto Rico, Recinto de Rio Piedras. Luego de culminar su bachillerato en Humanidades, con concentración en Bellas Artes en 1977, se traslada a Italia a estudiar las colecciones de los   museos y finalmente a Austria tras obtener una beca del Instituto de Cultura Puertorriqueña. Desde entonces, ha desarrollado y exhibido su obra en Austria, España, República Dominicana, México, Puerto Rico y Estados Unidos, donde completó una maestría en 1998, recibiendo también la invitación a diferentes residencias artísticas. A lo largo de su carrera, Carmona Bosch ha recibido numerosas distinciones, entre ellas el Premio Nacional al Mérito en 1994 y el premio de la AICA a la mejor exposición individual por su trabajo en Rojo Profundo del 2003. La producción artística de Carmona Bosch se trabaja en series, centrándose en la exploración de la abstracción, arraigada al dibujo intuitivo, a través de técnicas tradicionales. Su obra formula una reflexión constante sobre las huellas dejadas por las experiencias vividas. Al margen de circuitos y lejos de tendencias y academia, su trabajo ha sido exhibido y reconocido desde diferentes esferas institucionales,consolidándose como una voz propia en el arte puertorriqueño. </p>
+                <p class="biography-text">1998 MFA PAINTING, UNIVERSITY OF MASSACHUSETTS, AMHERST</p>
+                <p class="biography-text">1977 BA MAGNA CUM LAUDE FINE ARTS, UNIVERSIDAD DE PUERTO RICO</p>
+                <p class="biography-text">1975 EXCHANGE PROGRAM, STATE UNIVERSITY OF NEW YORK, OSWEGO</p>
             </div>
-        </section>
 
-        <!-- HURACÁN, TAINO WORD 1/4 -->
-        <section id="huracan-taino-word" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">HURACÁN, TAINO WORD 1/4</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/puerto-rico/Huracan-1-collage-1983-compressor.jpg" alt="HURACÁN, TAINO WORD 1/4" class="image-gallery-item" data-full-src="images/puerto-rico/Huracan-1-collage-1983-compressor.jpg" data-info="HURACÁN, TAINO WORD 1/4<BR>PUERTO RICO SERIES<BR>1983, OIL CRAYONS, CHARCOAL, PAPER COLLAGE, 28&#8243; X 40&#8243;">
+            <div class="biography-section-content" id="awards">
+                <h2 class="text-xl font-bold mb-4 px-2">PREMIOS</h2>
+                <ul class="biography-sub-list text-gray-800">
+                    <li><strong>ARTIST RESIDENCY SCHOLARSHIP FOR FOREIGNERS 2011</strong>,<BR>AUSPICIADO POR EL MINISTERIO DE RELACIONES EXTERIORES DE MÉXICO<BR>EN LA UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MORELOS, CUERNAVACA, MÉXICO</li>
+                    <li><strong>ESTIPENDIO</strong>, INSTITUTO DE CULTURA PUERTORRIQUEÑA 2011</li>
+                    <li><strong>MEJOR EXHIBICIÓN GRUPAL 2004</strong> POR <em>COALICIÓN</em><BR>AICA/ASOCIACIÓN INTERNACIONAL DE CRÍTICOS DE ARTE, CAPÍTULO P.R.</li>
+                    <li><strong>MEJOR EXHIBICIÓN INDIVIDUAL 2003</strong> POR <em>ROJO PROFUNDO</em><BR>AICA/ASOCIACIÓN INTERNACIONAL DE CRÍTICOS DE ARTE, CAPÍTULO P.R.</li>
+                    <li><strong>PROGRAMA DE ARTE VISITANTE</strong>, AMHERST PUBLIC ART COMMISSION<BR>AMHERST, MA, USA 1996</li>
+                    <li><strong>PREMIO NACIONAL AL MÉRITO</strong>, INSTITUTO DE CULTURA PUERTORRIQUEÑA, P.R. 1994</li>
+                    <li><strong>BECA FORD FOUNDATION</strong> PARA ESTUDIOS DE POSGRADO<BR>EN EL ART INSTITUTE OF CHICAGO, USA (NO UTILIZADO) 1986</li>
+                    <li><strong>BECA PARA ESTUDIOS DE ARTE EN EL EXTRANJERO EN AUSTRIA</strong><BR>INSTITUTO DE CULTURA PUERTORRIQUEÑA 1979</li>
+                    <li><strong>PREMIO DE DIBUJO, MOBIL OIL CO.</strong>, SAN JUAN, P.R. 1975</li>
+                </ul>
             </div>
-        </section>
 
-        <!-- LA PIETÁ TRIPTYCH, 2/3 -->
-        <section id="la-pieta-triptych" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">LA PIETÁ TRIPTYCH, 2/3</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/la-pieta/La-Pieta-2-1984-compressor.jpg" alt="LA PIETÁ TRIPTYCH, 2/3" class="image-gallery-item" data-full-src="images/la-pieta/La-Pieta-2-1984-compressor.jpg" data-info="LA PIETÁ TRIPTYCH, 2/3<BR>1984, OIL AND ASPHALT PAPER ON LINEN CANVAS, 72&#8243; X 48&#8243;">
+            <div class="biography-section-content" id="works-in-collections">
+                <h2 class="text-xl font-bold mb-4 px-2">OBRAS EN COLECCIONES</h2>
+                <ul class="biography-sub-list text-gray-800">
+                    <li>MUSEO DE ARTE CONTEMPORÁNEO DE PUERTO RICO</li>
+                    <li>COOPERATIVA DE SEGUROS MÚLTIPLES, SAN JUAN, PUERTO RICO</li>
+                    <li>MUSEO DE ARTE DE BAYAMÓN, PUERTO RICO</li>
+                    <li>UNIVERSIDAD INTERAMERICANA, RECINTO METRO, PUERTO RICO</li>
+                    <li>KULTURMINISTERIUM, VIENA, AUSTRIA</li>
+                    <li>KULTUR ZENTRUM BEI DEN MINORITEN KLOSTER, GRAZ, AUSTRIA</li>
+                </ul>
             </div>
-        </section>
 
-        <!-- ÜBERLEBEN IN GELB 1/2 -->
-        <section id="ueberleben-in-gelb" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">ÜBERLEBEN IN GELB 1/2</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/ueberleben/Supervivencia-en-amarillo1-compressor.jpg" alt="ÜBERLEBEN IN GELB 1/2" class="image-gallery-item" data-full-src="images/ueberleben/Supervivencia-en-amarillo1-compressor.jpg" data-info="ÜBERLEBEN IN GELB 1/2<BR>ÜBERLEBEN SERIES<BR>1984, PAPER COLLAGE ON COTTON CANVAS, 43&#8243; X 37&#8243;<BR>COLLECTION OF THE KULTURMINISTERIUM VIENNA, AUSTRIA">
+            <div class="biography-section-content" id="talks-lectures">
+                <h2 class="text-xl font-bold mb-4 px-2">CONFERENCIAS Y PONENCIAS</h2>
+                <ul class="biography-sub-list text-gray-800">
+                    <li>2ND ARTISTS TALK, [...] ENTREFORMAS EXHIBITION, MUSEO DE ARTE DE PUERTO RICO<BR>19 DE JUNIO DE 2021</li>
+                    <li>LECTURE, <em>MI ÚLTIMA CENA</em>, MUSEO DE ARTE DE BAYAMÓN, PUERTO RICO<BR>27 DE JUNIO DE 2012</li>
+                    <li>LECTURE, <em>ARTE ABSTRACTO</em>, C.A.S.A., CENTRO CULTURAL Y EDUCATIVO, CUERNAVACA, MEX<BR>DIC 2011</li>
+                    <li>ARTISTS TALK, <em>COALICIÓN</em> EXHIBITION, ATENEO PUERTORRIQUEÑO, SAN JUAN, PUERTO RICO<BR>JULIO/SEPTIEMBRE 2004</li>
+                </ul>
             </div>
-        </section>
 
-        <!-- RULETA -->
-        <section id="ruleta" class="mb-10 w-full">
-            <h2 class="text-lg font-semibold mb-4">RULETA</h2>
-            <div class="image-gallery-container flex space-x-4 pb-4">
-                <img src="images/battle/Ruleta.jpg" alt="RULETA" class="image-gallery-item" data-full-src="images/battle/Ruleta.jpg" data-info="RULETA<BR>WAR SERIES<BR>1979, COLLAGE ON CANVAS, 1.60M X 1.20M">
+            <div class="biography-section-content" id="texts">
+                <h2 class="text-xl font-bold mb-4 px-2">TEXTOS</h2>
+                <ul class="biography-sub-list text-gray-800">
+                    <li><strong><em>DIASPORISMOS: PARTIDA, AUSENCIA, RETORNO (1978-2020)</em>,</strong><BR>P. 22–28 RIPC 15, REVISTA DEL INSTITUTO DE CULTURA PUERTORRIQUEÑA 2021</li>
+                </ul>
             </div>
-        </section>
-
+        </div>
     </main>
 </div>
 
@@ -353,7 +395,7 @@
     AMANDA CARMONA BOSCH
 </footer>
 
-<!-- Full-page Image Carousel Overlay -->
+<!-- Full-page Image Carousel Overlay (not used in biography, but kept for consistency) -->
 <div id="carouselOverlay" class="carousel-overlay">
     <span class="carousel-close" id="carouselClose">&times;</span>
     <button class="carousel-nav-arrow left" id="carouselPrev">&lt;</button>
@@ -372,14 +414,6 @@
         const mobileMenu = document.getElementById('mobileMenu');
         const closeMobileMenu = document.getElementById('closeMobileMenu');
         const mobileHeader = document.getElementById('mobileHeader');
-        const carouselOverlay = document.getElementById('carouselOverlay');
-        const carouselImage = document.getElementById('carouselImage');
-        const carouselInfo = document.getElementById('carouselInfo');
-        const carouselPrev = document.getElementById('carouselPrev');
-        const carouselNext = document.getElementById('carouselNext');
-        const carouselClose = document.getElementById('carouselClose');
-        let currentImageIndex = 0;
-        let currentImages = [];
 
         hamburgerMobile.addEventListener('click', () => {
             mobileMenu.classList.add('open');
@@ -398,7 +432,8 @@
             });
         });
 
-        document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
+        // Smooth scroll for biography sub-navigation
+        document.querySelectorAll('.sidebar a[href^="#"], .mobile-menu a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
@@ -410,49 +445,6 @@
                 }
             });
         });
-
-        document.querySelectorAll('.image-gallery-item').forEach((item, index) => {
-            item.addEventListener('click', (event) => {
-                const currentGallery = event.target.closest('.image-gallery-container');
-                currentImages = Array.from(currentGallery.querySelectorAll('.image-gallery-item'));
-                currentImageIndex = currentImages.indexOf(event.target);
-                showCarousel();
-            });
-        });
-
-        carouselPrev.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-            updateCarouselImage();
-        });
-
-        carouselNext.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-            updateCarouselImage();
-        });
-
-        carouselClose.addEventListener('click', () => {
-            hideCarousel();
-        });
-
-        function showCarousel() {
-            updateCarouselImage();
-            carouselOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function hideCarousel() {
-            carouselOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function updateCarouselImage() {
-            if (currentImages.length > 0) {
-                const selectedImage = currentImages[currentImageIndex];
-                carouselImage.src = selectedImage.dataset.fullSrc || selectedImage.src;
-                carouselImage.alt = selectedImage.alt;
-                carouselInfo.innerHTML = selectedImage.dataset.info || '';
-            }
-        }
     });
 </script>
 </body>

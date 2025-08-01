@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMANDA CARMONA BOSCH - BIBLIOGRAFÍA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles for the Inter font and slight adjustments */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff; /* White background to match the image */
+      color: #000000; /* Black text */
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+    .nav-link {
+      transition: color 0.2s ease-in-out;
+      font-size: 0.875rem; /* text-sm */
+      line-height: 1.25rem; /* leading-5 */
+      letter-spacing: 0.05em; /* A bit more space for uppercase */
+      font-weight: 600; /* Tailwind's font-semibold */
+    }
+    /* The hover effect is now handled directly by Tailwind classes on the links */
+
+    /* Mobile-first approach for header and hamburger */
+    .header-mobile {
+      display: flex; /* Always show mobile header as flex */
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem; /* p-6 */
+      background-color: #ffffff; /* bg-white */
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    }
+    .hamburger-icon {
+      display: flex; /* Always show burger icon as flex on mobile */
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      z-index: 50;
+    }
+    .hamburger-icon span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #000;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Desktop overrides for header, sidebar, and hamburger */
+    @media (min-width: 769px) { /* md: breakpoint and up */
+      .header-mobile {
+        display: none; /* Hide mobile header on desktop */
+      }
+      .sidebar {
+        display: flex; /* Show desktop sidebar */
+      }
+      .hamburger-icon {
+        display: none; /* Hide burger on desktop */
+      }
+    }
+
+    /* Mobile menu specific styles */
+    .mobile-menu {
+      display: none; /* Hidden by default */
+      position: fixed; /* Fixed to cover the whole screen */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.98); /* Near-opaque white overlay */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      transform: translateX(100%); /* Start off-screen */
+      transition: transform 0.3s ease-in-out;
+    }
+    .mobile-menu.open {
+      transform: translateX(0); /* Slide in */
+      display: flex; /* Show when open */
+    }
+    .mobile-menu a {
+      padding: 1rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+      /* Default color and hover for mobile links handled by Tailwind classes below */
+    }
+
+    /* Image gallery specific styles for bibliography items */
+    .bibliography-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .bibliography-image {
+      width: 150px; /* Fixed width for covers */
+      height: 200px; /* Fixed height for covers */
+      object-fit: contain; /* Ensure full cover is visible */
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    .bibliography-title {
+      font-size: 0.875rem; /* text-sm */
+      font-weight: 600;
+      line-height: 1.25rem;
+    }
+    .bibliography-description {
+      font-size: 0.75rem; /* text-xs */
+      color: #666;
+    }
+
+    /* Carousel Overlay Styles */
+    .carousel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.98);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    .carousel-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .carousel-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      height: 80%;
+      position: relative;
+    }
+    .carousel-image-wrapper {
+      width: 60vw;
+      height: 70vh;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .carousel-image {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .carousel-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 3rem;
+      color: #000;
+      cursor: pointer;
+      padding: 0 1rem;
+      z-index: 110;
+    }
+    .carousel-nav-arrow.left {
+      left: 1rem;
+    }
+    .carousel-nav-arrow.right {
+      right: 1rem;
+    }
+    .carousel-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2.5rem;
+      color: #000;
+      cursor: pointer;
+      z-index: 110;
+    }
+    .carousel-info {
+      position: relative;
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #333;
+      max-width: 80%;
+    }
+
+    /* Responsive adjustments for carousel */
+    @media (max-width: 768px) {
+      .carousel-nav-arrow {
+        font-size: 2rem;
+        padding: 0.5rem;
+      }
+      .carousel-close {
+        font-size: 2rem;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+      .carousel-info {
+        font-size: 0.75rem;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin-top: 0.5rem;
+        max-width: 90%;
+      }
+      .carousel-image-wrapper {
+        width: 90vw;
+        height: 60vh;
+      }
+    }
+
+    /* Mobile-specific bibliography display */
+    @media (max-width: 768px) {
+      .bibliography-section .grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+      }
+      .bibliography-image {
+        width: 100px; /* Smaller on mobile */
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Mobile Header (only visible on small screens) -->
+<header class="header-mobile md:hidden" id="mobileHeader">
+  <a href="obras.html" class="text-xl font-bold uppercase">AMANDA CARMONA BOSCH</a>
+  <div class="hamburger-icon" id="hamburger-mobile">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<nav class="mobile-menu" id="mobileMenu">
+  <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>
+  <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
+  <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
+  <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+  <a href="bibliografia.html" class="nav-link uppercase text-black hover:text-black">BIBLIOGRAFÍA</a>
+  <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+  <!-- No sub-links for bibliography in mobile menu -->
+</nav>
+
+<!-- Desktop Layout: Sidebar + Main Content -->
+<div class="desktop-layout flex flex-grow">
+  <!-- Left Sidebar Navigation (Desktop Only) -->
+  <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">
+    <a href="obras.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>
+    <nav class="flex flex-col space-y-4">
+      <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
+      <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>
+      <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+      <a href="bibliografia.html" class="nav-link uppercase text-black hover:text-black">BIBLIOGRAFÍA</a>
+      <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+    </nav>
+    <!-- No sub-links for bibliography in desktop sidebar -->
+  </aside>
+
+  <!-- Bibliografía Main Content -->
+  <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
+    <h2 class="text-xl font-bold mb-8">PUBLICACIONES</h2>
+
+    <h3 class="text-lg font-bold mb-4">PUERTO RICO</h3>
+    <section id="puerto-rico-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p><strong><a href="https://www.puertoricoartnews.com/2023/10/desafiando-fronteras-y-transgrediendo.html" title="" class="text-black hover:text-gray-600">DESAFIANDO FRONTERAS Y TRANSGREDIENDO LÍMITES: LA VANGUARDIA DECIDIDA DE UNA ARTISTA CONTESTATARIA EN EL MUNDO DEL ARTE Y LA TECNOLOGÍA</a></strong><BR>PUERTO RICO ART NEWS<BR>POR BEATRIZ CARRILLO ACUÑA, MA TEORÍA CRÍTICA<BR>OCT 2023</p>
+
+        <p><strong><a href="https://www.elkilometro.org/across-the-horizon" title="" class="text-black hover:text-gray-600">(DES)AFECTOS E IMPERTINENCIA</a></strong><BR>TEXTO EN LÍNEA DE LA EXHIBICIÓN<BR>POR CURADORA PROF. MELISSA RAMOS BORGES, PHD<BR>OCT 2022</p>
+
+        <p><a href="https://www.elvocero.com/escenario/di-logo-abstracto-en-entreformas/article_a4e39696-8da7-11eb-a554-8317a0faf3e3.html" title="" class="text-black hover:text-gray-600"><em><strong>DIÁLOGO ABSTRACTO EN ENTREFORMAS</strong></em></a><BR>EL VOCERO DE PUERTO RICO<BR>27 DE MARZO DE 2021 (<A HREF="https://repeatingislands.com/2021/03/27/art-exhibition-entreformas/" TITLE="" CLASS="TEXT-BLACK HOVER:TEXT-GRAY-600">INGLÉS</A>)</p>
+
+        <p><a href="https://artsandculture.google.com/story/anarchy-and-dialectic-in-desire/jQKydPcWaixXLQ" title="" class="text-black hover:text-gray-600"><em><strong>ANARCHY AND DIALECTIC IN DESIRE PT 1 – GENDERS AND MARGINALIZATION IN PUERTO RICO</strong></em></a>, GOOGLE ARTS & AMP; CULTURE, MAC DE PUERTO RICO<BR>NOV 2020</p>
+
+        <p><a href="https://www.elvocero.com/escenario/anarqu-a-dial-ctica-y-g-neros-en-el-mac/article_ac9ad970-1c5c-11ea-b84a-bf74c43847cb.html" title="" class="text-black hover:text-gray-600"><em><strong>ANARQUÍA, DIALÉCTICA Y GÉNEROS EN EL MAC</strong></em></a><BR>EL VOCERO DE PUERTO RICO<BR>16 DE DIC 2019</p>
+
+        <p><em><strong>MANIPULACIONES O LA RECODIFICACIÓN DEL MEDIO</strong></em><BR>CATÁLOGO DE EXHIBICIÓN<BR>POR CURADORA PROF. MELISSA RAMOS BORGES, PHD<BR>OCT 2015</p>
+
+        <p><em><a href="https://arteypensamientocontemporaneo.wordpress.com/2015/08/09/viva-la-resistencia-women-artists-in-puerto-rico-and-outside/" title="" class="text-black hover:text-gray-600"><strong>VIVA LA RESISTENCIA: WOMEN ARTISTS IN PUERTO RICO AND OUTSIDE, IN ART AND POLITICS, FEMINISMS/GENDER POLITICS</strong></a></em><BR>ENSAYO FOTOGRÁFICO BLOG<BR>POR RAQUEL TORRES ARZOLA, MFA<BR>AGO 2015</p>
+
+        <p><em><a href="https://humanidades.uprrp.edu/visiondoble/?s=amanda+carmona+bosch" title="" class="text-black hover:text-gray-600"><strong>DE VIAJE POR RASGOS</strong></a></em><BR>POR PROF. NORA RODRÍGUEZ VALLÉS, PHD<BR>REVISTA VISIÓN DOBLE, UNIVERSIDAD DE PUERTO RICO<BR>NOV 2013</p>
+
+        <p><em><strong>OPTIKA 2: CONSTRUYENDO HISTORIAS CON IMÁGENES</strong></em><BR>CATÁLOGO DE EXHIBICIÓN, UNIVERSIDAD DE PUERTO RICO EN MAYAGÜEZ<BR>POR CURADORA PROF. LAURA BRAVO, PHD<BR>8 DE FEBRERO DE 2007</p>
+
+        <p><em><strong>ARTE PUERTORRIQUEÑO: IMAGEN DE UNA CULTURA</strong>/PUERTO RICAN ART: IMAGE OF A CULTURE</em>,<BR>CATÁLOGO DE EXHIBICIÓN<BR>POR PROF. JOSÉ A. PÉREZ RUÍZ, PHD<BR>FEB 2005</p>
+
+        <p><strong><em>ANTE UN CUARTO DE SIGLO DE COLECCIONISMO</em></strong><BR>ESCENARIO, EL VOCERO DE PUERTO RICO<BR>30 DE ABRIL DE 2005</p>
+
+        <p><em><strong>LA CASA DEL ARTE: DEL PASADO AL FUTURO</strong></em><BR>CATÁLOGO DE EXHIBICIÓN<BR>POR CURADOR PROF. RUBÉN A. MOREIRA, PHD<BR>8 DE DICIEMBRE DE 2005</p>
+
+        <p>ARTISTS CONVERSATION ON <em><strong>COALICIÓN</strong></em><BR>CATÁLOGO DE EXHIBICIÓN<BR>7 DE SEPTIEMBRE DE 2004</p>
+
+        <p><em><strong>FORO, CREACIÓN Y ANÁLISIS CULTURAL</strong></em><BR>FOTO DE PORTADA/TEXTO, POR CARMEN DOLORES HERNÁNDEZ, PHD<BR>EL NUEVO DÍA, SAN JUAN<BR>5 DE SEPTIEMBRE DE 2004</p>
+
+        <p><em><strong>GALARDONES A LA CREACIÓN PLÁSTICA</strong></em><BR>EL NUEVO DÍA, SAN JUAN<BR>17 DE ABRIL DE 2004</p>
+
+        <p><strong><em>PREMIOS AICA A LA EXCELENCIA</em></strong><BR>EL VOCERO DE PUERTO RICO<BR>19 DE ABRIL DE 2004</p>
+
+        <p><em><strong>PLÁSTICA AL SON DE LA SAN SEBASTIÁN</strong></em><BR>EL VOCERO DE PUERTO RICO<BR>12 DE ENERO DE 2004</p>
+
+        <p><em><strong>AMANDA CARMONA BOSCH: PENSAMIENTO Y ACCIÓN</strong></em><BR>CATÁLOGO DE EXHIBICIÓN<BR>POR PROF. JOSÉ A PÉREZ RUÍZ, PHD<BR>NOV, 2003</p>
+
+        <p><strong><em>AMANDA Y SU PASIÓN POR EL PINCEL</em></strong><BR>POR MARIO ALEGRE, EL NUEVO DÍA<BR>6 DE NOV, 2003</p>
+
+        <p><em><strong>ROJO PROFUNDO</strong></em>, TV-REPORTAJE, CULTURA VIVA, CANAL 6, P.R.<BR>6 DE NOV, 2003</p>
+
+        <p><em><strong>VISTAZOS DE COLOR Y FIGURAS HUMANAS</strong></em><BR>EL NUEVO DÍA<BR>JULIO 1985</p>
+
+        <p><em><strong>CARMONA EXHIBITS AT THE LEAGUE</strong></em><BR>THE SAN JUAN STAR<BR>AGOSTO 1985</p>
+
+        <p><em><strong>AMANDA CARMONA, UNA PINTORA PUERTORRIQUEÑA EN AUSTRIA</strong></em><BR>EL MUNDO<BR>JULIO 1985</p>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">REPÚBLICA DOMINICANA</h3>
+    <section id="dominican-republic-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p><strong><a href="https://hoy.com.do/tres-mujeres-pintoras-en-el-caribe-contemporaneo/" title="" class="text-black hover:text-gray-600">TRES MUJERES PINTORAS EN EL CARIBE</a></strong><BR>HOY DIGITAL<BR>POR AMABLE LÓPEZ MELÉNDEZ, PHD<BR>27 DE MAYO DE 2005</p>
+
+        <p><strong><a href="http://hoy.com.do/amanda-carmona-bosch-rojo-profundo-hasta-las-raices-de-la-luz" title="" class="text-black hover:text-gray-600">AMANDA CARMONA BOSCH, ROJO PROFUNDO: HASTA LAS RAÍCES DE LA LUZ</a></strong><BR>HOY DIGITAL<BR>AMABLE LÓPEZ MELÉNDEZ, PHD<BR>10 DE ENERO DE 2004</p>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">MÉXICO</h3>
+    <section id="mexico-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p>ENTREVISTA, RADIO UAEM<BR>UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MORELOS, CUERNAVACA<BR>NOV 2011</p>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">EE. UU.</h3>
+    <section id="usa-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p><em><strong>ABNORMAL FOBIA PIGMENTATION COMES TO HERTER GALLERY</strong></em><BR>THE CAMPUS CHRONICLE, UNIVERSITY OF MASSACHUSETTS AMHERST<BR>31 DE OCTUBRE DE 1997</p>
+
+        <p><strong><em>MEETING THE VISITING ARTISTS</em></strong><BR>AMHERST BULLETIN, AMHERST, MA<BR>3 DE MAYO DE 1996</p>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">ESPAÑA</h3>
+    <section id="spain-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p>ENTREVISTA, LOJA RADIO, GRANADA<BR>ABRIL 1993</p>
+
+        <p><em><strong>ÓLEOS DE AMANDA CARMONA: LAS DIMENSIONES DEL ALMA</strong></em><BR>POR EVA V. GALÁN<BR>SUPLEMENTO DE CULTURA, ARTES Y LETRAS, EL IDEAL, GRANADA<BR>MARZO 1993</p>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">AUSTRIA</h3>
+    <section id="austria-publicaciones" class="mb-10 w-full">
+      <div class="space-y-4 text-sm text-gray-800">
+        <p><strong><em><a href="https://www.meinbezirk.at/korneuburg/c-lokales/publikumsansturm-bei-figural-bis-abstrakt-im-lemu_a3166626#gallery=null" title="" class="text-black hover:text-gray-600">FIGURAL BIS ABSTRAKT</a></em>,</strong> MEINBEZIRK.AT<BR>REPORTAJE DE TV EN TV21.AT<BR>25 DE ENERO DE 2019</p>
+
+        <p><em><strong>MALERWOCHEN AUCH IN DER OSTSTEIER</strong></em><BR>SUD-OST TAGES POST, GRAZ<BR>NOVIEMBRE 1984</p>
+
+        <p><strong>(ÜBER)LEBENSKUNST</strong>, MEDITATION ’84<BR>CATÁLOGO DE EXHIBICIÓN POR JOSEF FINK<BR>STEIRISCHER HERBST INTERNATIONAL ART FESTIVAL, GRAZ<BR>OCTUBRE 1984</p>
+
+        <p><em><strong>VISIONEN VON ANGST UND SCHRECKEN</strong></em><BR>SUD-OST TAGES POST, GRAZ<BR>MAYO 1984</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="p-6 md:p-8 bg-white shadow-sm text-center text-gray-500 text-sm">
+  AMANDA CARMONA BOSCH
+</footer>
+
+<!-- Full-page Image Carousel Overlay (not used in bibliography, but kept for consistency) -->
+<div id="carouselOverlay" class="carousel-overlay">
+  <span class="carousel-close" id="carouselClose">&times;</span>
+  <button class="carousel-nav-arrow left" id="carouselPrev">&lt;</button>
+  <div class="carousel-content">
+    <div class="carousel-image-wrapper">
+      <img src="" alt="Carousel Image" class="carousel-image" id="carouselImage">
+    </div>
+    <div class="carousel-info" id="carouselInfo"></div>
+  </div>
+  <button class="carousel-nav-arrow right" id="carouselNext">&gt;</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMobile = document.getElementById('hamburger-mobile');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileHeader = document.getElementById('mobileHeader');
+
+    hamburgerMobile.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      mobileHeader.style.display = 'none';
+    });
+
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      mobileHeader.style.display = 'flex';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileHeader.style.display = 'flex';
+      });
+    });
+  });
+</script>
+</body>
+</html>

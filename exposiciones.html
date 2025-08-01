@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMANDA CARMONA BOSCH - EXPOSICIONES</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles for the Inter font and slight adjustments */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff; /* White background to match the image */
+      color: #000000; /* Black text */
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+    .nav-link {
+      transition: color 0.2s ease-in-out;
+      font-size: 0.875rem; /* text-sm */
+      line-height: 1.25rem; /* leading-5 */
+      letter-spacing: 0.05em; /* A bit more space for uppercase */
+      font-weight: 600; /* Tailwind's font-semibold */
+    }
+    /* The hover effect is now handled directly by Tailwind classes on the links */
+
+    /* Mobile-first approach for header and hamburger */
+    .header-mobile {
+      display: flex; /* Always show mobile header as flex */
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem; /* p-6 */
+      background-color: #ffffff; /* bg-white */
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    }
+    .hamburger-icon {
+      display: flex; /* Always show burger icon as flex on mobile */
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      z-index: 50;
+    }
+    .hamburger-icon span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #000;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Desktop overrides for header, sidebar, and hamburger */
+    @media (min-width: 769px) { /* md: breakpoint and up */
+      .header-mobile {
+        display: none; /* Hide mobile header on desktop */
+      }
+      .sidebar {
+        display: flex; /* Show desktop sidebar */
+      }
+      .hamburger-icon {
+        display: none; /* Hide burger on desktop */
+      }
+    }
+
+    /* Mobile menu specific styles */
+    .mobile-menu {
+      display: none; /* Hidden by default */
+      position: fixed; /* Fixed to cover the whole screen */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.98); /* Near-opaque white overlay */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      transform: translateX(100%); /* Start off-screen */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-menu a {
+      padding: 1rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+      /* Default color and hover for mobile links handled by Tailwind classes below */
+    }
+
+    .mobile-menu .sub-links-grid a {
+      padding: 0.5rem; /* Smaller padding for sub-links */
+      font-size: 0.875rem; /* text-sm */
+      text-align: left; /* Align text to the left within columns */
+      white-space: nowrap; /* Prevent text from wrapping */
+      overflow: hidden; /* Hide overflow text */
+      text-overflow: ellipsis; /* Add ellipsis for overflow */
+    }
+
+    /* Image gallery specific styles for exhibition cards */
+    .exhibition-image-wrapper {
+      width: 100%; /* Make the wrapper fill the available width */
+      height: 200px; /* Fixed height for consistency of the wrapper */
+      display: flex; /* Use flexbox to center the image */
+      justify-content: flex-start; /* Align image content to the left */
+      align-items: center; /* Center vertically */
+      background-color: #ffffff;
+      border-radius: 4px; /* Match the border-radius of the image */
+      overflow: hidden; /* Hide any overflow if image is larger than wrapper */
+    }
+
+    .exhibition-image {
+      max-width: 100%; /* Ensure image doesn't overflow its wrapper */
+      max-height: 100%; /* Ensure image doesn't overflow its wrapper */
+      object-fit: contain; /* Important: Scale down to fit, add whitespace if aspect ratio doesn't match */
+      object-position: left; /* Align image content to the left within its box */
+      cursor: pointer; /* Indicate clickable */
+    }
+
+
+    /* Important: Ensure exhibition-card fills its grid cell and uses flex for its internal content */
+    .exhibition-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Align text content to start */
+      height: 100%; /* Important: Make the card fill the height of its grid cell */
+    }
+
+    /* Ensure the image is always at the bottom by pushing the info up */
+    .exhibition-card > div:not(.exhibition-image-wrapper) { /* Changed selector to target divs not the new wrapper */
+      flex-grow: 1; /* Allow the text content to take up available space */
+    }
+
+
+    /* --- CAROUSEL OVERLAY STYLES (MODIFIED FOR NEW LAYOUT) --- */
+    .carousel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.98); /* Near-opaque white background */
+      display: flex;
+      justify-content: center; /* Center main content horizontally */
+      align-items: center; /* Center main content vertically */
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      padding: 2rem; /* Add some padding around the whole carousel content */
+      box-sizing: border-box; /* Include padding in width/height calculation */
+    }
+    .carousel-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main content wrapper within the carousel, now responsible for stacking */
+    .carousel-main-content-wrapper {
+      display: flex;
+      flex-direction: column; /* Stacks title, image, and description vertically */
+      align-items: flex-start; /* Align content to the left */
+      width: 100%; /* Take full width of parent (carousel-overlay padding accounts for spacing) */
+      max-width: 1200px; /* Max width for the content area */
+      height: 100%; /* Take full height available within the overlay padding */
+      max-height: calc(100vh - 4rem); /* Max height to ensure it fits on screen, accounting for overlay padding */
+      gap: 1.5rem; /* Space between stacked elements */
+      position: relative; /* For positioning close button relative to this block if needed */
+      padding: 2rem; /* Inner padding for the content block */
+      box-sizing: border-box;
+      overflow-y: auto; /* Make the entire content of the carousel scrollable */
+    }
+
+    .carousel-header-text { /* New wrapper for text elements above image */
+      display: flex;
+      flex-direction: column; /* Stack main title and meta info */
+      align-items: flex-start;
+      width: 100%;
+      flex-shrink: 0; /* Prevent from shrinking */
+    }
+
+    .carousel-title { /* This will now contain title + date */
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+      text-align: left;
+      line-height: 1.2; /* Adjust line height for better alignment */
+      width: 100%; /* Allow title text to wrap */
+    }
+
+    .carousel-title .date { /* Styling for the date part within the title */
+      color: #888888;
+      font-size: 1em; /* Inherit size from parent .carousel-title */
+      font-weight: inherit; /* Inherit weight from parent .carousel-title */
+      margin-left: 0.5em; /* Small space after title word */
+      white-space: nowrap; /* Prevent date from wrapping separately */
+    }
+
+
+    .carousel-meta-info { /* Now only contains location */
+      display: flex;
+      flex-direction: column; /* Keep as column for location */
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 1rem; /* Space below location before image */
+    }
+
+    .carousel-location { /* Styling for location */
+      font-size: 0.9rem; /* Slightly smaller for sub-info */
+      font-weight: normal; /* Less bold */
+      color: #888888; /* Gray color */
+      text-align: left;
+      line-height: 1.3;
+      margin-top: 0; /* No extra top margin here, handled by meta-info margin-bottom */
+    }
+
+
+    .carousel-image-outer-wrapper {
+      width: 100%; /* Take full available width */
+      height: 60%; /* Occupy 60% of the available height for image area */
+      display: flex;
+      justify-content: flex-start; /* Align image content to the left */
+      align-items: center;
+      background-color: #ffffff; /* White background for the margin effect */
+      flex-shrink: 0; /* Prevent image from shrinking */
+    }
+
+    .carousel-image {
+      max-width: 100%; /* Image fits inside its new outer wrapper */
+      max-height: 100%;
+      object-fit: contain;
+      object-position: left; /* Align image content to the left within its box */
+    }
+
+    .carousel-scrollable-text-area { /* Replaced carousel-description-area for just scrollable text */
+      width: 100%; /* Take full available width */
+      flex-grow: 1; /* Allows this area to take up all remaining vertical space */
+      text-align: left; /* Align text to the left */
+      font-size: 0.9rem;
+      color: #000; /* Black text for readability */
+      display: flex;
+      flex-direction: column; /* Ensure text flows naturally */
+      justify-content: flex-start; /* Align text content to the top */
+      padding-right: 20px; /* Add some padding on the right for scrollbar clearance */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+
+    .carousel-placeholder-text {
+      font-size: 0.875rem; /* text-sm */
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .carousel-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 3rem;
+      color: #000;
+      cursor: pointer;
+      padding: 0 1rem;
+      z-index: 110;
+      opacity: 0.7; /* Slightly less opaque */
+      transition: opacity 0.2s ease-in-out;
+    }
+    .carousel-nav-arrow:hover {
+      opacity: 1; /* Fully opaque on hover */
+    }
+    .carousel-nav-arrow.left {
+      left: 0; /* Position relative to the overlay edge */
+      transform: translateY(-50%) translateX(-100%); /* Adjust to be outside padding */
+    }
+    .carousel-nav-arrow.right {
+      right: 0; /* Position relative to the overlay edge */
+      transform: translateY(-50%) translateX(100%); /* Adjust to be outside padding */
+    }
+    .carousel-close {
+      position: absolute;
+      top: 1rem; /* Position relative to the overlay */
+      right: 1rem; /* Position relative to the overlay */
+      font-size: 2.5rem;
+      color: #000;
+      cursor: pointer;
+      z-index: 120; /* Increased z-index to ensure it's above scrollbar */
+    }
+
+    /* Responsive adjustments for carousel */
+    @media (max-width: 768px) {
+      .carousel-overlay {
+        padding: 1rem; /* Less padding on small screens */
+      }
+      .carousel-main-content-wrapper {
+        padding: 1rem; /* Less inner padding on mobile */
+        gap: 0.5rem; /* Smaller gap on mobile */
+        max-height: calc(100vh - 2rem); /* Adjust max height for mobile padding */
+        /* New: Make narrower to ensure scrollbar doesn't overlap 'X' */
+        width: calc(100% - 2.5rem); /* Leaves 2.5rem on the right for 'X' button + scrollbar */
+        margin-left: auto; /* Push it to the right, creating space on the left if needed */
+        margin-right: 1.5rem; /* Explicit right margin for scrollbar clearance */
+      }
+      .carousel-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .carousel-title .date { /* Date styling for mobile */
+        font-size: 1em; /* Keep relative size */
+        line-height: 1.2;
+      }
+      .carousel-meta-info {
+        margin-bottom: 0.5rem;
+      }
+      .carousel-location {
+        font-size: 0.8rem;
+      }
+      .carousel-image-outer-wrapper {
+        height: 40vh; /* Fixed height for image area on mobile */
+      }
+      .carousel-scrollable-text-area {
+        padding-right: 0; /* Remove right padding on mobile */
+      }
+      .carousel-nav-arrow {
+        font-size: 2rem;
+        padding: 0 0.5rem;
+        top: auto; /* Reset top positioning */
+        bottom: 1rem; /* Position at the bottom */
+        transform: none; /* Reset transform */
+      }
+      .carousel-nav-arrow.left {
+        left: 1rem; /* Keep arrows closer to the edge on mobile */
+      }
+      .carousel-nav-arrow.right {
+        right: 1rem; /* Keep arrows closer to the edge on mobile */
+      }
+      .carousel-close {
+        font-size: 2rem;
+        top: 0.5rem;
+        right: 0.5rem; /* Position relative to the very edge of the overlay */
+        /* Z-index 120 is already set globally */
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header-mobile md:hidden" id="mobileHeader">
+  <a href="obras.html" class="text-xl font-bold uppercase">AMANDA CARMONA BOSCH</a>
+  <div class="hamburger-icon" id="hamburger-mobile">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu">
+  <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>
+  <a href="index.html" class="nav-link uppercase text-gray-600 hover:text-black">INICIO</a>
+  <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
+  <a href="exposiciones.html" class="nav-link uppercase text-black hover:text-black">EXPOSICIONES</a>
+  <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+  <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
+  <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+  <div class="custom-divider"></div>
+  <nav class="sub-links-grid">
+    <a href="#todo" class="nav-link text-xs uppercase text-black hover:text-black" data-filter="todo">TODO</a>
+    <a href="#2025-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2025">2025</a>
+    <a href="#2024-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2024">2024</a>
+    <a href="#2023-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2023">2023</a>
+    <a href="#2022-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2022">2022</a>
+    <a href="#2021-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2021">2021</a>
+    <a href="#2020-2019-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2020-2019">2020-2019</a>
+    <a href="#2018-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2018">2018</a>
+    <a href="#2017-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2017">2017</a>
+    <a href="#2015-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black" data-filter="2015">2015</a>
+    <a href="#2013-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2013">2013</a>
+    <a href="#2012-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2012">2012</a>
+    <a href="#2009-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2009">2009</a>
+    <a href="#2007-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2007">2007</a>
+    <a href="#2006-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2006">2006</a>
+    <a href="#2005-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2005">2005</a>
+    <a href="#2004-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2004">2004</a>
+    <a href="#2002-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2002">2002</a>
+    <a href="#1996-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1996">1996</a>
+    <a href="#1986-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1986">1986</a>
+    <a href="#1985-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1985">1985</a>
+    <a href="#1984-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1984">1984</a>
+    <a href="#1981-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1981">1981</a>
+  </nav>
+</nav>
+
+<div class="desktop-layout flex flex-grow">
+  <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">
+    <a href="obras.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>
+    <nav class="flex flex-col space-y-4">
+
+      <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
+      <a href="exposiciones.html" class="nav-link uppercase text-black hover:text-black">EXPOSICIONES</a>
+      <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>
+      <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
+      <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
+    </nav>
+
+    <div class="custom-divider"></div>
+    <nav class="flex flex-col space-y-2 mt-4">
+      <a href="#todo" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="todo">TODO</a>
+      <a href="#2025-exposiciones" class="nav-link text-xs uppercase text-black hover:text-black pl-4" data-filter="2025">2025</a>
+      <a href="#2024-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2024">2024</a>
+      <a href="#2023-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2023">2023</a>
+      <a href="#2022-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2022">2022</a>
+      <a href="#2021-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2021">2021</a>
+      <a href="#2020-2019-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2020-2019">2020-2019</a>
+      <a href="#2018-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2018">2018</a>
+      <a href="#2017-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2017">2017</a>
+      <a href="#2015-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2015">2015</a>
+      <a href="#2013-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2013">2013</a>
+      <a href="#2012-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2012">2012</a>
+      <a href="#2009-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2009">2009</a>
+      <a href="#2007-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2007">2007</a>
+      <a href="#2006-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2006">2006</a>
+      <a href="#2005-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2005">2005</a>
+      <a href="#2004-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2004">2004</a>
+      <a href="#2002-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="2002">2002</a>
+      <a href="#1996-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1996">1996</a>
+      <a href="#1986-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1986">1986</a>
+      <a href="#1985-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1985">1985</a>
+      <a href="#1984-exposiciones-individuales" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1984">1984</a>
+      <a href="#1981-exposiciones" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4" data-filter="1981">1981</a>
+    </nav>
+  </aside>
+
+  <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
+    <h3 class="text-lg font-bold mb-4">INDIVIDUALES</h3>
+
+    <section id="2025-exposiciones" class="mb-10 w-full exhibition-section" data-year="2025">
+      <h2 class="text-lg font-semibold mb-4">2025</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2025</div>
+          <div class="text-base font-semibold mb-1">EL MAL, UNA REALIDAD VIOLENTA PARA EL LENGUAJE DE UN PINCEL</div>
+          <div class="text-sm text-gray-600 mb-4">LA LIGA DE ARTE DE SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+1" alt="EL MAL, UNA REALIDAD VIOLENTA PARA EL LENGUAJE DE UN PINCEL" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=EL+MAL+FULL" data-info="EL MAL, UNA REALIDAD VIOLENTA PARA EL LENGUAJE DE UN PINCEL<BR>2025<BR>LA LIGA DE ARTE DE SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2013-exposiciones-individuales" class="mb-10 w-full exhibition-section" data-year="2013">
+      <h2 class="text-lg font-semibold mb-4">2013</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2013</div>
+          <div class="text-base font-semibold mb-1">RASGOS</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA CAI, UNIVERSIDAD INTERAMERICANA RECINTO METRO, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+2" alt="RASGOS" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=RASGOS+FULL" data-info="RASGOS<BR>2013<BR>GALERÍA CAI, UNIVERSIDAD INTERAMERICANA RECINTO METRO, SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2011-exposiciones" class="mb-10 w-full exhibition-section" data-year="2011">
+      <h2 class="text-lg font-semibold mb-4">2011</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2011</div>
+          <div class="text-base font-semibold mb-1">A CONTRALUZ: VARIACIONES SOBRE UNA SILUETA</div>
+          <div class="text-sm text-gray-600 mb-4">C.A.S.A., CUERNAVACA, MÉXICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/a-contraluz-variaciones-sobre-una-silueta/Serie-I-Mujer-Molino.jpg" alt="A CONTRALUZ" class="exhibition-image" data-full-src="images/a-contraluz-variaciones-sobre-una-silueta/Serie-I-Mujer-Molino.jpg" data-info="A CONTRALUZ: VARIACIONES SOBRE UNA SILUETA<BR>2011<BR>C.A.S.A., CUERNAVACA, MÉXICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2003-exposiciones" class="mb-10 w-full exhibition-section" data-year="2003">
+      <h2 class="text-lg font-semibold mb-4">2003</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2003</div>
+          <div class="text-base font-semibold mb-1">ROJO PROFUNDO</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE LAS AMÉRICAS, BALLAJÁ, VIEJO SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+4" alt="ROJO PROFUNDO" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=ROJO+PROFUNDO+FULL" data-info="ROJO PROFUNDO<BR>2003<BR>MUSEO DE LAS AMÉRICAS, BALLAJÁ, VIEJO SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2001-exposiciones" class="mb-10 w-full exhibition-section" data-year="2001">
+      <h2 class="text-lg font-semibold mb-4">2001</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2001</div>
+          <div class="text-base font-semibold mb-1">PINTURAS</div>
+          <div class="text-sm text-gray-600 mb-4">DMR, VIEJO SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+5" alt="PINTURAS" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=PINTURAS+FULL" data-info="PINTURAS<BR>2001<BR>DMR, VIEJO SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1997-exposiciones" class="mb-10 w-full exhibition-section" data-year="1997">
+      <h2 class="text-lg font-semibold mb-4">1997</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1997</div>
+          <div class="text-base font-semibold mb-1">ABNORMAL FOBIA PIGMENTATION</div>
+          <div class="text-sm text-gray-600 mb-4">HERTER GALLERY, UMASS AMHERST, MA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/abnormal-fobia-pigmentation/Melancolia-1.jpg" alt="ABNORMAL FOBIA PIGMENTATION" class="exhibition-image" data-full-src="images/abnormal-fobia-pigmentation/Melancolia-1.jpg" data-info="ABNORMAL FOBIA PIGMENTATION<BR>1997<BR>HERTER GALLERY, UMASS AMHERST, MA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1997</div>
+          <div class="text-base font-semibold mb-1">WORKS ON PAPER</div>
+          <div class="text-sm text-gray-600 mb-4">HOLYOKE COMMUNITY COLLEGE, HOLYOKE, MA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/the-shape-of-thoght/2005-crayon-de-aceite-papel.jpg" alt="WORKS ON PAPER" class="exhibition-image" data-full-src="images/the-shape-of-thoght/2005-crayon-de-aceite-papel.jpg" data-info="WORKS ON PAPER<BR>1997<BR>HOLYOKE COMMUNITY COLLEGE, HOLYOKE, MA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1993-exposiciones" class="mb-10 w-full exhibition-section" data-year="1993">
+      <h2 class="text-lg font-semibold mb-4">1993</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1993</div>
+          <div class="text-base font-semibold mb-1">PINTURAS Y COLLAGES</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA DE LA GENERAL EN LOJA, ESPAÑA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/12-oleos/Maternidad-1993-compressor.jpg" alt="PINTURAS Y COLLAGES" class="exhibition-image" data-full-src="images/12-oleos/Maternidad-1993-compressor.jpg" data-info="PINTURAS Y COLLAGES<BR>1993<BR>GALERÍA DE LA GENERAL EN LOJA, ESPAÑA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1993</div>
+          <div class="text-base font-semibold mb-1">SIETE ÓLEOS</div>
+          <div class="text-sm text-gray-600 mb-4">CENTRO CULTURAL DE EL ALBAIZÍN, GRANADA, ESPAÑA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/12-oleos/En-la-matriz-Serie-7-oleos-1993-oleo-hilo-compressor.jpg" alt="SIETE ÓLEOS" class="exhibition-image" data-full-src="images/12-oleos/En-la-matriz-Serie-7-oleos-1993-oleo-hilo-compressor.jpg" data-info="SIETE ÓLEOS<BR>1993<BR>CENTRO CULTURAL DE EL ALBAIZÍN, GRANADA, ESPAÑA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1985-exposiciones-individuales" class="mb-10 w-full exhibition-section" data-year="1985">
+      <h2 class="text-lg font-semibold mb-4">1985</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1985</div>
+          <div class="text-base font-semibold mb-1">MALEREI & AMP; COLLAGES</div>
+          <div class="text-sm text-gray-600 mb-4">MINORITEN KLOSTER, GRAZ, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" alt="MALEREI & AMP; COLLAGES" class="exhibition-image" data-full-src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" data-info="MALEREI & AMP; COLLAGES<BR>1985<BR>MINORITEN KLOSTER, GRAZ, AUSTRIA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1985</div>
+          <div class="text-base font-semibold mb-1">PINTURAS Y COLLAGES</div>
+          <div class="text-sm text-gray-600 mb-4">LIGA DE ESTUDIANTES DE ARTE DE SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/autoretratos-amarillo-azul-rojo/Autorretrato-en-Amarillo-1984-compressor.jpg" alt="PINTURAS Y COLLAGES" class="exhibition-image" data-full-src="images/autoretratos-amarillo-azul-rojo/Autorretrato-en-Amarillo-1984-compressor.jpg" data-info="PINTURAS Y COLLAGES<BR>1985<BR>LIGA DE ESTUDIANTES DE ARTE DE SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1984-exposiciones-individuales" class="mb-10 w-full exhibition-section" data-year="1984">
+      <h2 class="text-lg font-semibold mb-4">1984</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1984</div>
+          <div class="text-base font-semibold mb-1">MALEREI & AMP; GRAFIK</div>
+          <div class="text-sm text-gray-600 mb-4">GALERIE K, KINDBERG, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/a-contraluz-variaciones-sobre-una-silueta/Serie-I-Mujer-Molino.jpg" alt="MALEREI & AMP; GRAFIK" class="exhibition-image" data-full-src="images/a-contraluz-variaciones-sobre-una-silueta/Serie-I-Mujer-Molino.jpg" data-info="MALEREI & AMP; GRAFIK<BR>1984<BR>GALERIE K, KINDBERG, AUSTRIA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1984</div>
+          <div class="text-base font-semibold mb-1">MALEREI</div>
+          <div class="text-sm text-gray-600 mb-4">INSTITUTO AFROASIÁTICO, GRAZ, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/autoretrato-en-krieglach/Autorretrato-en-Krieglach.jpg" alt="MALEREI" class="exhibition-image" data-full-src="images/autoretrato-en-krieglach/Autorretrato-en-krieglach.jpg" data-info="MALEREI<BR>1984<BR>INSTITUTO AFROASIÁTICO, GRAZ, AUSTRIA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h3 class="text-lg font-bold mt-10 mb-4">COLECTIVAS</h3>
+
+    <section id="2025-colectivas" class="mb-10 w-full exhibition-section" data-year="2025">
+      <h2 class="text-lg font-semibold mb-4">2025</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2025</div>
+          <div class="text-base font-semibold mb-1">PUERTO RICAN WOMEN IN THE ART, A TRAILER PARK PROJECT</div>
+          <div class="text-sm text-gray-600 mb-4">EL SCHOMBURG, CHICAGO 7, DE MARZO 2025<BR>LIGA DE ARTE DE SAN JUAN, 5 DE JUNIO 2025</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/exhibiciones-actuales/puertorican-woman-in-arts.jpeg" alt="PUERTO RICAN WOMEN IN THE ART" class="exhibition-image" data-full-src="images/exhibiciones-actuales/puertorican-woman-in-arts.jpeg" data-info="PUERTO RICAN WOMEN IN THE ART, A TRAILER PARK PROJECT<BR>2025<BR>EL SCHOMBURG, CHICAGO 7, DE MARZO 2025<BR>LIGA DE ARTE DE SAN JUAN, 5 DE JUNIO 2025">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2024-colectivas" class="mb-10 w-full exhibition-section" data-year="2024">
+      <h2 class="text-lg font-semibold mb-4">2024</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2024</div>
+          <div class="text-base font-semibold mb-1">SEIN UND LIEBE</div>
+          <div class="text-sm text-gray-600 mb-4">5. INTERNATIONAL FRAUEN AUSTELLUNG, BULGARIAN INSTITUTE OF CULTURE,<BR>HAUS WITTGENSTEIN, VIENA, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+15" alt="SEIN UND LIEBE" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=SEIN+UND+LIEBE+FULL" data-info="SEIN UND LIEBE<BR>2024<BR>5. INTERNATIONAL FRAUEN AUSTELLUNG, BULGARIAN INSTITUTE OF CULTURE,<BR>HAUS WITTGENSTEIN, VIENA, AUSTRIA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2024</div>
+          <div class="text-base font-semibold mb-1">CORTAR, COSER, QUEBRAR, CUIDAR, QUEMAR</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA SOUVENIR 154, CASA ABOY, SANTURCE, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+16" alt="CORTAR, COSER, QUEBRAR, CUIDAR, QUEMAR" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=CORTAR+COSER+FULL" data-info="CORTAR, COSER, QUEBRAR, CUIDAR, QUEMAR<BR>2024<BR>GALERÍA SOUVENIR 154, CASA ABOY, SANTURCE, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2023-exposiciones" class="mb-10 w-full exhibition-section" data-year="2023">
+      <h2 class="text-lg font-semibold mb-4">2023</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2023</div>
+          <div class="text-base font-semibold mb-1">MAESTRAS</div>
+          <div class="text-sm text-gray-600 mb-4">MASTERS PUERTO RICO GALLERY, OLD SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+17" alt="MAESTRAS" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=MAESTRAS+FULL" data-info="MAESTRAS<BR>2023<BR>MASTERS PUERTO RICO GALLERY, OLD SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2023</div>
+          <div class="text-base font-semibold mb-1">TSCHAK BOOM #4</div>
+          <div class="text-sm text-gray-600 mb-4">MINISTRY OF ARTISTS, VIENNA, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+18" alt="TSCHAK BOOM #4" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=TSCHAK+BOOM+FULL" data-info="TSCHAK BOOM #4<BR>2023<BR>MINISTRY OF ARTISTS, VIENA, AUSTRIA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2022-exposiciones" class="mb-10 w-full exhibition-section" data-year="2022">
+      <h2 class="text-lg font-semibold mb-4">2022</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2022</div>
+          <div class="text-base font-semibold mb-1">ACROSS THE HORIZON</div>
+          <div class="text-sm text-gray-600 mb-4">EL KILÓMETRO (KM18) GALLERY, SANTURCE, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+19" alt="ACROSS THE HORIZON" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=ACROSS+THE+HORIZON+FULL" data-info="ACROSS THE HORIZON<BR>2022<BR>EL KILÓMETRO (KM18) GALLERY, SANTURCE, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2021-exposiciones" class="mb-10 w-full exhibition-section" data-year="2021">
+      <h2 class="text-lg font-semibold mb-4">2021</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2021</div>
+          <div class="text-base font-semibold mb-1">[...] ENTREFORMAS</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE DE PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+20" alt="ENTREFORMAS" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=ENTREFORMAS+FULL" data-info="[...] ENTREFORMAS<BR>2021<BR>MUSEO DE ARTE DE PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2020-2019-exposiciones" class="mb-10 w-full exhibition-section" data-year="2020-2019">
+      <h2 class="text-lg font-semibold mb-4">2020-2019</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2020–2019</div>
+          <div class="text-base font-semibold mb-1">ANARQUÍA Y DIALÉCTICA EN EL DESEO</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE CONTEMPORÁNEO, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+21" alt="ANARQUÍA Y DIALÉCTICA EN EL DESEO" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=ANARQUIA+DIALECTICA+FULL" data-info="ANARQUÍA Y DIALÉCTICA EN EL DESEO<BR>2020–2019<BR>MUSEO DE ARTE CONTEMPORÁNEO, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2020–2019</div>
+          <div class="text-base font-semibold mb-1">NEXOS</div>
+          <div class="text-sm text-gray-600 mb-4">PUERTORRICAN WOMEN ARTISTS, MUSEO DE ARTE DE BAYAMÓN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+22" alt="NEXOS" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=NEXOS+FULL" data-info="NEXOS<BR>2020–2019<BR>PUERTORRICAN WOMEN ARTISTS, MUSEO DE ARTE DE BAYAMÓN, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2020–2019</div>
+          <div class="text-base font-semibold mb-1">FIGURAL BIS ABSTRAKT</div>
+          <div class="text-sm text-gray-600 mb-4">LANGENZERSDORF MUSEUM LEMU, N.Ö., AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+23" alt="FIGURAL BIS ABSTRAKT" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=FIGURAL+BIS+ABSTRAKT+FULL" data-info="FIGURAL BIS ABSTRAKT<BR>2020–2019<BR>LANGENZERSDORF MUSEUM LEMU, N.Ö., AUSTRIA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2018-exposiciones" class="mb-10 w-full exhibition-section" data-year="2018">
+      <h2 class="text-lg font-semibold mb-4">2018</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2018</div>
+          <div class="text-base font-semibold mb-1">CONTRAPUNTO</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE CONTEMPORÁNEO DE PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+24" alt="CONTRAPUNTO" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=CONTRAPUNTO+FULL" data-info="CONTRAPUNTO<BR>2018<BR>MUSEO DE ARTE CONTEMPORÁNEO DE PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2018</div>
+          <div class="text-base font-semibold mb-1">AUFBRUCH ZUM LICHT</div>
+          <div class="text-sm text-gray-600 mb-4">OTTO MAUER ZENTRUM, VIENA, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+25" alt="AUFBRUCH ZUM LICHT" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=AUFBRUCH+ZUM+LICHT+FULL" data-info="AUFBRUCH ZUM LICHT<BR>2018<BR>OTTO MAUER ZENTRUM, VIENA, AUSTRIA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2017-exposiciones" class="mb-10 w-full exhibition-section" data-year="2017">
+      <h2 class="text-lg font-semibold mb-4">2017</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2017</div>
+          <div class="text-base font-semibold mb-1">EIGEN SICHT DER DINGE</div>
+          <div class="text-sm text-gray-600 mb-4">KUNSTSALON SCHÖNBRUNN, SCHLOSS SCHÖNBRUNN, VIENA, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+26" alt="EIGEN SICHT DER DINGE" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=EIGEN+SICHT+FULL" data-info="EIGEN SICHT DER DINGE<BR>2017<BR>KUNSTSALON SCHÖNBRUNN, SCHLOSS SCHÖNBRUNN, VIENA, AUSTRIA">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2017</div>
+          <div class="text-base font-semibold mb-1">LA BATALLA DESPUÉS DEL CUERPO</div>
+          <div class="text-sm text-gray-600 mb-4">UN PROYECTO FEMINISTA, MUSEO DE ARTE DE CAGUAS, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="images/battle/Batalla-tinta-papel-1983-compressor.jpg" alt="LA BATALLA DESPUÉS DEL CUERPO" class="exhibition-image" data-full-src="images/battle/Batalla-tinta-papel-1983-compressor.jpg" data-info="LA BATALLA DESPUÉS DEL CUERPO<BR>2017<BR>UN PROYECTO FEMINISTA, MUSEO DE ARTE DE CAGUAS, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2015-exposiciones" class="mb-10 w-full exhibition-section" data-year="2015">
+      <h2 class="text-lg font-semibold mb-4">2015</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2015</div>
+          <div class="text-base font-semibold mb-1">MANIPULACIONES O LA RECODIFICACIÓN DEL MEDIO</div>
+          <div class="text-sm text-gray-600 mb-4">PROYECTO LOCAL 270, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+28" alt="MANIPULACIONES O LA RECODIFICACIÓN DEL MEDIO" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=MANIPULACIONES+FULL" data-info="MANIPULACIONES O LA RECODIFICACIÓN DEL MEDIO<BR>2015<BR>PROYECTO LOCAL 270, SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2013-exposiciones-colectivas" class="mb-10 w-full exhibition-section" data-year="2013">
+      <h2 class="text-lg font-semibold mb-4">2013</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2013</div>
+          <div class="text-base font-semibold mb-1">MUESTRA NACIONAL DE ARTE 2013</div>
+          <div class="text-sm text-gray-600 mb-4">ANTIGUO ARSENAL DE LA PUNTILLA<BR>INSTITUTO DE CULTURA PUERTORRIQUEÑA, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+29" alt="MUESTRA NACIONAL DE ARTE 2013" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=MUESTRA+NACIONAL+FULL" data-info="MUESTRA NACIONAL DE ARTE 2013<BR>2013<BR>ANTIGUO ARSENAL DE LA PUNTILLA<BR>INSTITUTO DE CULTURA PUERTORRIQUEÑA, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2012-exposiciones" class="mb-10 w-full exhibition-section" data-year="2012">
+      <h2 class="text-lg font-semibold mb-4">2012</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2012</div>
+          <div class="text-base font-semibold mb-1">NUEVAS ADQUISICIONES</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE DE BAYAMÓN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+30" alt="NUEVAS ADQUISICIONES" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=NUEVAS+ADQUISICIONES+FULL" data-info="NUEVAS ADQUISICIONES<BR>2012<BR>MUSEO DE ARTE DE BAYAMÓN, PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2012</div>
+          <div class="text-base font-semibold mb-1">CALEIDOSCOPIO</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA 778, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+31" alt="CALEIDOSCOPIO" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=CALEIDOSCOPIO+FULL" data-info="CALEIDOSCOPIO<BR>2012<BR>GALERÍA 778, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2009-exposiciones" class="mb-10 w-full exhibition-section" data-year="2009">
+      <h2 class="text-lg font-semibold mb-4">2009</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2009</div>
+          <div class="text-base font-semibold mb-1">MUJER PINTORA</div>
+          <div class="text-sm text-gray-600 mb-4">COOPERATIVA DE SEGUROS MÚLTIPLES, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+32" alt="MUJER PINTORA" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=MUJER+PINTORA+FULL" data-info="MUJER PINTORA<BR>2009<BR>COOPERATIVA DE SEGUROS MÚLTIPLES, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2007-exposiciones" class="mb-10 w-full exhibition-section" data-year="2007">
+      <h2 class="text-lg font-semibold mb-4">2007</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2007</div>
+          <div class="text-base font-semibold mb-1">OPTIKA2. EXPOSICIÓN SOBRE NARRACIÓN VISUAL</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA CHARDÓN<BR>UNIVERSIDAD DE PUERTO RICO, RECINTO DE MAYAGÜEZ</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+33" alt="OPTIKA2" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=OPTIKA2+FULL" data-info="OPTIKA2. EXPOSICIÓN SOBRE NARRACIÓN VISUAL<BR>2007<BR>GALERÍA CHARDÓN<BR>UNIVERSIDAD DE PUERTO RICO, RECINTO DE MAYAGÜEZ">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2006-exposiciones" class="mb-10 w-full exhibition-section" data-year="2006">
+      <h2 class="text-lg font-semibold mb-4">2006</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2006</div>
+          <div class="text-base font-semibold mb-1">PREMIO ARTES PLÁSTICAS</div>
+          <div class="text-sm text-gray-600 mb-4">ATENEO PUERTORRIQUEÑO, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+34" alt="PREMIO ARTES PLÁSTICAS" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=PREMIO+ARTES+FULL" data-info="PREMIO ARTES PLÁSTICAS<BR>2006<BR>ATENEO PUERTORRIQUEÑO, SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2005-exposiciones" class="mb-10 w-full exhibition-section" data-year="2005">
+      <h2 class="text-lg font-semibold mb-4">2005</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2005</div>
+          <div class="text-base font-semibold mb-1">ARTE PUERTORRIQUEÑO: IMAGEN DE UNA CULTURA</div>
+          <div class="text-sm text-gray-600 mb-4">25 AÑOS DE LA COLECCIÓN<BR>DE LA COOPERATIVA DE SEGUROS MÚLTIPLES, MUSEO DE ARTE DE PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+35" alt="ARTE PUERTORRIQUEÑO" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=ARTE+PUERTORRIQUENO+FULL" data-info="ARTE PUERTORRIQUEÑO: IMAGEN DE UNA CULTURA<BR>2005<BR>25 AÑOS DE LA COLECCIÓN<BR>DE LA COOPERATIVA DE SEGUROS MÚLTIPLES, MUSEO DE ARTE DE PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2005</div>
+          <div class="text-base font-semibold mb-1">PREMIO NACIONAL DE ARTES VISUALES</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE CONTEMPORÁNEO, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+36" alt="PREMIO NACIONAL DE ARTES VISUALES" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=PREMIO+NACIONAL+FULL" data-info="PREMIO NACIONAL DE ARTES VISUALES<BR>2005<BR>MUSEO DE ARTE CONTEMPORÁNEO, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2005</div>
+          <div class="text-base font-semibold mb-1">COLECTIVA INAUGURAL</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA LA CASA DEL ARTE, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+37" alt="COLECTIVA INAUGURAL" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=COLECTIVA+INAUGURAL+FULL" data-info="COLECTIVA INAUGURAL<BR>2005<BR>GALERÍA LA CASA DEL ARTE, SAN JUAN, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2005</div>
+          <div class="text-base font-semibold mb-1">SUBASTA MUSEO DE ARTE CONTEMPORÁNEO</div>
+          <div class="text-sm text-gray-600 mb-4">P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+38" alt="SUBASTA MUSEO DE ARTE CONTEMPORÁNEO" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=SUBASTA+MUSEO+FULL" data-info="SUBASTA MUSEO DE ARTE CONTEMPORÁNEO<BR>2005<BR>P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2005</div>
+          <div class="text-base font-semibold mb-1">LA CASA DEL ARTE: DEL PASADO AL PRESENTE</div>
+          <div class="text-sm text-gray-600 mb-4">LA CASA DEL ARTE, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+39" alt="LA CASA DEL ARTE" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=LA+CASA+DEL+ARTE+FULL" data-info="LA CASA DEL ARTE: DEL PASADO AL PRESENTE<BR>2005<BR>LA CASA DEL ARTE, SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2004-exposiciones" class="mb-10 w-full exhibition-section" data-year="2004">
+      <h2 class="text-lg font-semibold mb-4">2004</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">NUEVAS ADQUISICIONES</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE ARTE CONTEMPORÁNEO DE PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+40" alt="NUEVAS ADQUISICIONES" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=NUEVAS+ADQUISICIONES+FULL" data-info="NUEVAS ADQUISICIONES<BR>2004<BR>MUSEO DE ARTE CONTEMPORÁNEO DE PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">COALICIÓN</div>
+          <div class="text-sm text-gray-600 mb-4">ATENEO PUERTORRIQUEÑO, SAN JUAN Y MUSEO DE LA HISTORIA DE PONCE, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+41" alt="COALICIÓN" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=COALICION+FULL" data-info="COALICIÓN<BR>2004<BR>ATENEO PUERTORRIQUEÑO, SAN JUAN Y MUSEO DE LA HISTORIA DE PONCE, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">MUJERES CON HISTORIA</div>
+          <div class="text-sm text-gray-600 mb-4">URI GALLERY, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+42" alt="MUJERES CON HISTORIA" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=MUJERES+CON+HISTORIA+FULL" data-info="MUJERES CON HISTORIA<BR>2004<BR>URI GALLERY, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">ÓLEOS DE FESTIVAL</div>
+          <div class="text-sm text-gray-600 mb-4">CONGRESO IBEROAMERICANO DE LAS ARTES<BR>URI GALLERY, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+43" alt="ÓLEOS DE FESTIVAL" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=OLEOS+DE+FESTIVAL+FULL" data-info="ÓLEOS DE FESTIVAL<BR>2004<BR>CONGRESO IBEROAMERICANO DE LAS ARTES<BR>URI GALLERY, SAN JUAN, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">PINTURA ABSTRACTA PUERTORRIQUEÑA-CUATRO GENERACIONES</div>
+          <div class="text-sm text-gray-600 mb-4">LA CASA DEL ARTE, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+44" alt="PINTURA ABSTRACTA PUERTORRIQUEÑA" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=PINTURA+ABSTRACTA+FULL" data-info="PINTURA ABSTRACTA PUERTORRIQUEÑA-CUATRO GENERACIONES<BR>2004<BR>LA CASA DEL ARTE, SAN JUAN, P.R.">
+          </div>
+        </div>
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2004</div>
+          <div class="text-base font-semibold mb-1">EL DIBUJO</div>
+          <div class="text-sm text-gray-600 mb-4">LA CASA DEL ARTE, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+45" alt="EL DIBUJO" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=EL+DIBUJO+FULL" data-info="EL DIBUJO<BR>2004<BR>LA CASA DEL ARTE, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="2002-exposiciones" class="mb-10 w-full exhibition-section" data-year="2002">
+      <h2 class="text-lg font-semibold mb-4">2002</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">2002</div>
+          <div class="text-base font-semibold mb-1">ABSTRACTOS RECIENTES</div>
+          <div class="text-sm text-gray-600 mb-4">GALERÍA CALLE CRISTO, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+46" alt="ABSTRACTOS RECIENTES" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=ABSTRACTOS+RECIENTES+FULL" data-info="ABSTRACTOS RECIENTES<BR>2002<BR>GALERÍA CALLE CRISTO, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1996-exposiciones" class="mb-10 w-full exhibition-section" data-year="1996">
+      <h2 class="text-lg font-semibold mb-4">1996</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1996</div>
+          <div class="text-base font-semibold mb-1">VISUAL THINKING IN MOTION, ANIMATION SHOW</div>
+          <div class="text-sm text-gray-600 mb-4">WHEELER GALLERY<BR>UMASS AMHERST, USA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+47" alt="VISUAL THINKING IN MOTION" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=VISUAL+THINKING+FULL" data-info="VISUAL THINKING IN MOTION, ANIMATION SHOW<BR>1996<BR>WHEELER GALLERY<BR>UMASS AMHERST, USA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1986-exposiciones" class="mb-10 w-full exhibition-section" data-year="1986">
+      <h2 class="text-lg font-semibold mb-4">1986</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1986</div>
+          <div class="text-base font-semibold mb-1">MUJERES ARTISTAS</div>
+          <div class="text-sm text-gray-600 mb-4">MUSEO DE BELLAS ARTES, SAN JUAN, PUERTO RICO</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+48" alt="MUJERES ARTISTAS" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=MUJERES+ARTISTAS+FULL" data-info="MUJERES ARTISTAS<BR>1986<BR>MUSEO DE BELLAS ARTES, SAN JUAN, PUERTO RICO">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1985-exposiciones-colectivas" class="mb-10 w-full exhibition-section" data-year="1985">
+      <h2 class="text-lg font-semibold mb-4">1985</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1985</div>
+          <div class="text-base font-semibold mb-1">SALÓN DE LA PINTURA ’85</div>
+          <div class="text-sm text-gray-600 mb-4">INSTITUTO DE CULTURA PUERTORRIQUEÑA<BR>EL ARSENAL DE LA PUNTILLA, SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/a0a0a0/333333?text=EXPO+49" alt="SALÓN DE LA PINTURA ’85" class="exhibition-image" data-full-src="https://placehold.co/800x600/a0a0a0/333333?text=SALON+PINTURA+FULL" data-info="SALÓN DE LA PINTURA ’85<BR>1985<BR>INSTITUTO DE CULTURA PUERTORRIQUEÑA<BR>EL ARSENAL DE LA PUNTILLA, SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1984-exposiciones-colectivas" class="mb-10 w-full exhibition-section" data-year="1984">
+      <h2 class="text-lg font-semibold mb-4">1984</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1984</div>
+          <div class="text-base font-semibold mb-1">STEIRISCHER HERBST INTERNATIONAL ARTS FESTIVAL, MALERWOCHEN MEDITATION ’84</div>
+          <div class="text-sm text-gray-600 mb-4">POPPENDORF CASTLE AND MINORITEN KLOSTER, GRAZ, AUSTRIA</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/e0e0e0/333333?text=EXPO+50" alt="STEIRISCHER HERBST" class="exhibition-image" data-full-src="https://placehold.co/800x600/e0e0e0/333333?text=STEIRISCHER+HERBST+FULL" data-info="STEIRISCHER HERBST INTERNATIONAL ARTS FESTIVAL, MALERWOCHEN MEDITATION ’84<BR>1984<BR>POPPENDORF CASTLE AND MINORITEN KLOSTER, GRAZ, AUSTRIA">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="1981-exposiciones" class="mb-10 w-full exhibition-section" data-year="1981">
+      <h2 class="text-lg font-semibold mb-4">1981</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div class="exhibition-card">
+          <div class="text-sm text-gray-700 mb-1">1981</div>
+          <div class="text-base font-semibold mb-1">PREMIO REVISTA SIN NOMBRE</div>
+          <div class="text-sm text-gray-600 mb-4">LIGA DE ESTUDIANTES DE ARTE DE SAN JUAN, P.R.</div>
+          <div class="exhibition-image-wrapper">
+            <img src="https://placehold.co/400x300/c0c0c0/333333?text=EXPO+51" alt="PREMIO REVISTA SIN NOMBRE" class="exhibition-image" data-full-src="https://placehold.co/800x600/c0c0c0/333333?text=PREMIO+REVISTA+FULL" data-info="PREMIO REVISTA SIN NOMBRE<BR>1981<BR>LIGA DE ESTUDIANTES DE ARTE DE SAN JUAN, P.R.">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="p-6 md:p-8 bg-white shadow-sm text-center text-gray-500 text-sm">
+  AMANDA CARMONA BOSCH
+</footer>
+
+<div id="carouselOverlay" class="carousel-overlay">
+  <span class="carousel-close" id="carouselClose">&times;</span>
+  <button class="carousel-nav-arrow left" id="carouselPrev">&lt;</button>
+  <button class="carousel-nav-arrow right" id="carouselNext">&gt;</button>
+
+  <div class="carousel-main-content-wrapper">
+    <div class="carousel-header-text">
+      <div class="carousel-title" id="carouselTitle"></div> <div class="carousel-meta-info">
+      <span class="carousel-location" id="carouselLocation"></span>
+    </div>
+    </div>
+    <div class="carousel-image-outer-wrapper">
+      <img src="" alt="Carousel Image" class="carousel-image" id="carouselImage">
+    </div>
+    <div class="carousel-scrollable-text-area">
+      <p class="carousel-placeholder-text" id="carouselPlaceholderText"></p>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerMobile = document.getElementById('hamburger-mobile');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+    const mobileHeader = document.getElementById('mobileHeader');
+    const carouselOverlay = document.getElementById('carouselOverlay');
+    const carouselImage = document.getElementById('carouselImage');
+    const carouselTitle = document.getElementById('carouselTitle'); // This will now hold title and date
+    // Removed carouselDateTitle as it's no longer a separate element at top level
+    const carouselLocation = document.getElementById('carouselLocation');
+    const carouselPlaceholderText = document.getElementById('carouselPlaceholderText');
+    const carouselPrev = document.getElementById('carouselPrev');
+    const carouselNext = document.getElementById('carouselNext');
+    const carouselClose = document.getElementById('carouselClose');
+    let currentImageIndex = 0;
+    let currentImages = [];
+
+    // Placeholder text (approx 600 words) - Increased length
+    const placeholderText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus adipiscing euismod. Aliquam erat volutpat. Praesent id nisi eu metus euismod eleifend. Phasellus eu lectus eget erat eget arcu. Integer egestas, dolor ut aliquet. Vitae justo eget magna fermentum iaculis eu non diam phasellus. Egestas congue quisque egestas diam in. Consectetur adipiscing elit duis tristique. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum. Nulla facilisi cras fermentum odio eu. Pellentesque habitant morbi tristique senectus et. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Nisl condimentum id venenatis a condimentum vitae. Tortor condimentum lacinia quis vel. Diam maecenas sed enim ut sem. Mattis nunc sed blandit libero volutpat sed cras ornare arcu. Ultrices in iaculis nunc sed augue. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Massa enim nec dui nunc mattis enim. Velit scelerisque in dictum non. Ultrices neque ornare aenean euismod elementum nisi quis. Sit amet consectetur adipiscing elit duis. Nunc sed augue lacus viverra vitae congue eu. Tellus at urna condimentum mattis pellentesque id. Quis eleifend quam adipiscing vitae proin sagittis nisl. Ut sem nulla pharetra diam sit amet nisl suscipit. Aliquet eget sit amet tellus cras adipiscing enim eu turpis. Ultrices gravida dictum fusce ut placerat. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Sit amet volutpat consequat mauris. Ultricies mi quis hendrerit dolor magna eget. Pellentesque habitant morbi tristique senectus et netus et malesuada. Odio euismod lacinia at quis risus sed vulputate. Ultricies tristique nulla aliquet enim tortor at auctor urna nunc. Mattis pellentesque id nibh tortor id. Blandit turpis cursus in hac habitasse platea dictumst. Elementum eu facilisis sed odio. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+
+
+    // Function to filter exhibitions
+    function filterExhibitions(selectedFilter) {
+      const sections = document.querySelectorAll('.exhibition-section');
+      sections.forEach(section => {
+        const sectionYear = section.dataset.year;
+        if (selectedFilter === 'todo' || sectionYear === selectedFilter) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    }
+
+    // Function to update active year link style
+    function updateActiveYearLink(clickedLink) {
+      document.querySelectorAll('.sidebar .nav-link[data-filter], .mobile-menu .nav-link[data-filter]').forEach(link => {
+        link.classList.remove('text-black');
+        link.classList.add('text-gray-600');
+      });
+      clickedLink.classList.remove('text-gray-600');
+      clickedLink.classList.add('text-black');
+    }
+
+    // Initial setup for mobile menu
+    hamburgerMobile.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      mobileHeader.style.display = 'none';
+    });
+
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      mobileHeader.style.display = 'flex';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileHeader.style.display = 'flex';
+      });
+    });
+
+    // Event listeners for year filters in desktop sidebar
+    document.querySelectorAll('.sidebar .nav-link[data-filter]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const filterValue = this.dataset.filter;
+        updateActiveYearLink(this);
+        filterExhibitions(filterValue);
+      });
+    });
+
+    // Event listeners for year filters in mobile menu
+    document.querySelectorAll('.mobile-menu .nav-link[data-filter]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const filterValue = this.dataset.filter;
+        updateActiveYearLink(this);
+        filterExhibitions(filterValue);
+        mobileMenu.classList.remove('open'); // Close mobile menu after selection
+        mobileHeader.style.display = 'flex'; // Show header again
+      });
+    });
+
+    // Initial filter on page load (show todo by default)
+    const defaultYearLink = document.querySelector('.sidebar .nav-link[data-filter="todo"]');
+    if (defaultYearLink) {
+      updateActiveYearLink(defaultYearLink);
+      filterExhibitions('todo');
+    } else {
+      // Fallback if todo link not found, show all
+      const defaultMobileYearLink = document.querySelector('.mobile-menu .nav-link[data-filter="2025"]');
+      if (defaultMobileYearLink) { // Prioritize 2025 for mobile if 'todo' is not default
+        updateActiveYearLink(defaultMobileYearLink);
+        filterExhibitions('2025');
+      } else { // Fallback to 'todo' if 2025 also not found
+        const fallbackTodoLink = document.querySelector('.mobile-menu .nav-link[data-filter="todo"]');
+        if(fallbackTodoLink) {
+          updateActiveYearLink(fallbackTodoLink);
+          filterExhibitions('todo');
+        }
+      }
+    }
+
+
+    // Carousel functionality
+    document.querySelectorAll('.exhibition-image').forEach((item) => {
+      item.addEventListener('click', (event) => {
+        // Get all images from the *current* exhibition section (not just the visible ones)
+        const currentSection = event.target.closest('section');
+        currentImages = Array.from(currentSection.querySelectorAll('.exhibition-image'));
+        currentImageIndex = currentImages.indexOf(event.target);
+        showCarousel();
+      });
+    });
+
+    carouselPrev.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+      updateCarouselContent();
+    });
+
+    carouselNext.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+      updateCarouselContent();
+    });
+
+    carouselClose.addEventListener('click', () => {
+      hideCarousel();
+    });
+
+    function showCarousel() {
+      updateCarouselContent();
+      carouselOverlay.classList.add('active');
+      // Body overflow is not hidden here, as the carousel itself handles overflow
+    }
+
+    function hideCarousel() {
+      carouselOverlay.classList.remove('active');
+      // Body overflow is not restored here
+    }
+
+    // Function to update all carousel content (image, title, date, placeholder)
+    function updateCarouselContent() {
+      if (currentImages.length > 0) {
+        const selectedImage = currentImages[currentImageIndex];
+        carouselImage.src = selectedImage.dataset.fullSrc || selectedImage.src;
+        carouselImage.alt = selectedImage.alt;
+
+        // Parse data-info: "TITLE<BR>DATE<BR>LOCATION"
+        const infoParts = (selectedImage.dataset.info || '').split('<BR>');
+        const title = infoParts[0] ? infoParts[0].trim() : 'Untitled Exhibition';
+        const date = infoParts[1] ? infoParts[1].trim() : ''; // Empty string if no date
+        const location = infoParts[2] ? infoParts[2].trim() : ''; // Empty string if no location
+
+        // Combine title and date into one HTML string for carouselTitle
+        carouselTitle.innerHTML = `${title} <span class="date">${date}</span>`;
+
+        carouselLocation.textContent = location; // Set the location text
+        carouselPlaceholderText.textContent = placeholderText; // Set the placeholder text
+      }
+    }
+  });
+</script>
+</body>
+</html>
