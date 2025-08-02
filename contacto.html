@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMANDA CARMONA BOSCH - CONTACTO</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the Inter font and slight adjustments */
@@ -148,7 +147,6 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-<!-- Mobile Header (only visible on small screens) -->
 <header class="header-mobile md:hidden" id="mobileHeader">
     <a href="obras.html" class="text-xl font-bold uppercase">AMANDA CARMONA BOSCH</a>
     <div class="hamburger-icon" id="hamburger-mobile">
@@ -158,7 +156,6 @@
     </div>
 </header>
 
-<!-- Mobile Menu Overlay -->
 <nav class="mobile-menu" id="mobileMenu">
     <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>
     <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
@@ -168,9 +165,7 @@
     <a href="contacto.html" class="nav-link uppercase text-black hover:text-black">CONTACTO</a>
 </nav>
 
-<!-- Desktop Layout: Sidebar + Main Content -->
 <div class="desktop-layout flex flex-grow">
-    <!-- Left Sidebar Navigation (Desktop Only) -->
     <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">
         <a href="obras.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>
         <nav class="flex flex-col space-y-4">
@@ -182,15 +177,15 @@
         </nav>
     </aside>
 
-    <!-- Contacto Main Content -->
-    <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
+    <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-64">
         <div class="contact-section">
             <div class="contact-row w-full">
                 <div class="contact-col-image w-full sm:w-1/2">
                     <img src="images/taller/puerta-taller-a.jpg" class="contact-image" alt="PUERTA DEL TALLER">
                 </div>
                 <div class="contact-col-email w-full sm:w-1/2 flex justify-center items-center">
-                    <h4 class="contact-email">CARMONABOSCH@GMAIL.COM</h4>
+                   <!-- <h4 class="contact-email">CARMONABOSCH@GMAIL.COM</h4> -->
+                    <h4 class="contact-email break-words bg-red-500">CARMONABOSCH@GMAIL.COM</h4>
                 </div>
             </div>
             <br>
@@ -199,7 +194,6 @@
         </div>
     </main>
 </div>
-<!-- Footer -->
 <footer class="p-6 md:p-8 bg-white shadow-sm text-center text-gray-500 text-sm">
     AMANDA CARMONA BOSCH
 </footer>
