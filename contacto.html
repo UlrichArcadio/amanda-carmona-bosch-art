@@ -102,19 +102,14 @@
             /* REMOVED 'padding' and 'margin' from here to fix layout issues */
         }
         .contact-image {
-            width: 100%;
+            width: 80%;
             height: auto;
             object-fit: cover;
             border-radius: 8px;
         }
-        .contact-email {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 1rem;
-            text-align: center;
-        }
+
         .contact-location-image {
-            width: 100%;
+            width: 80%;
             height: auto;
             object-fit: cover;
             border-radius: 8px;
@@ -176,19 +171,23 @@
         </nav>
     </aside>
 
-    <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-64">
-        <div class="contact-section">
-            <div class="contact-row w-full">
-                <div class="contact-col-image w-full sm:w-1/2">
-                    <img src="images/taller/puerta-taller-a.jpg" class="contact-image" alt="PUERTA DEL TALLER">
-                </div>
-                <div class="contact-col-email w-full sm:w-1/2 flex justify-center items-center">
-                    <h4 class="contact-email break-words">CARMONABOSCH@GMAIL.COM</h4>
+    <main class="artworks-content-area flex-grow flex justify-center p-6 md:p-10">
+        <div class="contact-section w-full max-w-6xl flex flex-col md:flex-row items-center gap-8">
+
+            <div class="relative w-full md:w-1/2">
+                <img src="images/taller/puerta-taller-a.jpg" class="w-full h-auto object-cover rounded-lg" alt="PUERTA DEL TALLER">
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
+                    <a href="mailto:CARMONABOSCH@GMAIL.COM" class="text-white font-bold text-xl sm:text-2xl md:text-3xl break-words text-center px-4 hover:underline">
+                        CARMONABOSCH@GMAIL.COM
+                    </a>
                 </div>
             </div>
-            <br>
-            <img src="images/taller/Tallr-Cupey-Alto-scaled.jpg" class="contact-location-image" alt="TALLER CUPEY ALTO">
-            <h3 class="contact-location-title"><strong>TALLER A</strong>, SAN JUAN</h3>
+
+            <div class="w-full md:w-1/2">
+                <img src="images/taller/Tallr-Cupey-Alto-scaled.jpg" class="w-full h-auto object-cover rounded-lg" alt="TALLER CUPEY ALTO">
+                <h3 class="text-lg font-bold mt-4 text-center"><strong>TALLER A</strong>, SAN JUAN</h3>
+            </div>
+
         </div>
     </main>
 </div>
