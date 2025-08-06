@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMANDA CARMONA BOSCH - BIOGRAFÍA</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the Inter font and slight adjustments */
@@ -62,6 +61,9 @@
             }
             .hamburger-icon {
                 display: none; /* Hide burger on desktop */
+            }
+            .biography-image-container {
+                width: 28%; /* MODIFIED: Set a new width for desktop (40% * 0.7) */
             }
         }
 
@@ -236,7 +238,9 @@
 
         /* Biography specific styles */
         .biography-image-container {
-            width: 30%; /* Match width=80% from original file */
+            width: 50%; /* MODIFIED: Made container smaller for mobile (90% * 0.7) */
+            margin-left: auto;
+            margin-right: auto;
             height: auto;
             margin-top: 1.5rem; /* mt-3 */
             margin-bottom: 1rem; /* Space before caption */
@@ -245,7 +249,7 @@
             align-items: center;
         }
         .biography-image {
-            width: 100%;
+            width: 45%;
             height: auto;
             object-fit: contain;
             border-radius: 4px;
@@ -255,6 +259,7 @@
             color: #666;
             text-align: center;
             margin-top: 0.5rem;
+            margin-bottom: 5rem;
         }
         .biography-section-content {
             margin-bottom: 2rem; /* Spacing between sections */
@@ -274,7 +279,6 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-<!-- Mobile Header (only visible on small screens) -->
 <header class="header-mobile md:hidden" id="mobileHeader">
     <a href="index.html" class="text-xl font-bold uppercase">AMANDA CARMONA BOSCH</a>
     <div class="hamburger-icon" id="hamburger-mobile">
@@ -284,7 +288,6 @@
     </div>
 </header>
 
-<!-- Mobile Menu Overlay -->
 <nav class="mobile-menu" id="mobileMenu">
     <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>
     <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>
@@ -292,7 +295,6 @@
     <a href="biografia.html" class="nav-link uppercase text-black hover:text-black">BIOGRAFÍA</a>
     <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>
     <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
-    <!-- Divider for mobile menu -->
     <div class="border-t-4 border-gray-300 pt-4 mt-4 w-full"></div>
     <nav class="flex flex-col space-y-2 mt-4">
         <a href="#biografia-section" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">BIOGRAFÍA</a>
@@ -303,9 +305,7 @@
     </nav>
 </nav>
 
-<!-- Desktop Layout: Sidebar + Main Content -->
 <div class="desktop-layout flex flex-grow">
-    <!-- Left Sidebar Navigation (Desktop Only) -->
     <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">
         <a href="index.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>
         <nav class="flex flex-col space-y-4">
@@ -316,7 +316,6 @@
             <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>
         </nav>
 
-        <!-- Divider and Biografía Sub-links -->
         <div class="border-t-4 border-gray-300 pt-4 mt-4 w-full"></div>
         <nav class="flex flex-col space-y-2 mt-4">
             <a href="#biografia-section" class="nav-link text-xs uppercase text-gray-600 hover:text-black pl-4">BIOGRAFÍA</a>
@@ -327,7 +326,6 @@
         </nav>
     </aside>
 
-    <!-- Biografía Main Content -->
     <main class="artworks-content-area flex-grow flex flex-col items-start p-6 md:p-10 ml-0 md:ml-16">
         <div class="container mt-3">
             <div class="biography-image-container">
@@ -390,12 +388,10 @@
     </main>
 </div>
 
-<!-- Footer -->
 <footer class="p-6 md:p-8 bg-white shadow-sm text-center text-gray-500 text-sm">
     © 2024 AMANDA CARMONA BOSCH
 </footer>
 
-<!-- Full-page Image Carousel Overlay (not used in biography, but kept for consistency) -->
 <div id="carouselOverlay" class="carousel-overlay">
     <span class="carousel-close" id="carouselClose">&times;</span>
     <button class="carousel-nav-arrow left" id="carouselPrev">&lt;</button>
