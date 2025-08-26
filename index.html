@@ -133,9 +133,10 @@
     <main class="flex-grow flex items-center justify-center p-4 md:p-8 ml-0 md:ml-16">
         <div id="slideshow-container" class="w-full max-w-4xl mx-auto relative" data-interval="5000">
 
-            <div class="relative w-full overflow-hidden" style="padding-top: 66.66%;"> <div class="slide absolute top-0 left-0 w-full h-full opacity-0">
-                <img src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" class="w-full h-full object-contain" alt="Slideshow Image 1">
-            </div>
+            <div class="relative w-full overflow-hidden" style="padding-top: 66.66%;">
+                <div class="slide absolute top-0 left-0 w-full h-full opacity-0">
+                    <img src="images/about-doubt/Intuición-Serie-Sobre-La-Duda-2009-collage-algodon-compressor.jpg" class="w-full h-full object-contain" alt="Slideshow Image 1">
+                </div>
                 <div class="slide absolute top-0 left-0 w-full h-full opacity-0">
                     <img src="images/abnormal-fobia-pigmentation/En-el-jardin-de-las-delicias-4.jpg" class="w-full h-full object-contain" alt="Slideshow Image 2">
                 </div>
@@ -153,14 +154,17 @@
                 </div>
             </div>
 
-            <button id="prev-btn" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-50 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <button id="next-btn" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-50 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-            </button>
+            <div class="w-full flex justify-center items-center gap-4 mt-4">
+                <button id="prev-btn" class="bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-50 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
 
-            <div id="dots-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <div id="dots-container" class="flex space-x-2">
+                </div>
+
+                <button id="next-btn" class="bg-black bg-opacity-30 text-white p-2 rounded-full hover:bg-opacity-50 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
             </div>
         </div>
     </main>
@@ -269,187 +273,3 @@
 </script>
 </body>
 </html>
-
-<!--FOR EXPOS-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="es">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>AMANDA CARMONA BOSCH - PÁGINA DE INICIO</title>-->
-<!--    &lt;!&ndash; Tailwind CSS CDN &ndash;&gt;-->
-<!--    <script src="https://cdn.tailwindcss.com"></script>-->
-<!--    <style>-->
-<!--        /* Custom styles for the Inter font and slight adjustments */-->
-<!--        body {-->
-<!--            font-family: 'Inter', sans-serif;-->
-<!--            background-color: #ffffff; /* White background to match the image */-->
-<!--            color: #000000; /* Black text */-->
-<!--            margin: 0;-->
-<!--            padding: 0;-->
-<!--            overflow-x: hidden; /* Prevent horizontal scroll */-->
-<!--        }-->
-<!--        .nav-link {-->
-<!--            transition: color 0.2s ease-in-out;-->
-<!--            font-size: 0.875rem; /* text-sm */-->
-<!--            line-height: 1.25rem; /* leading-5 */-->
-<!--            letter-spacing: 0.05em; /* A bit more space for uppercase */-->
-<!--            font-weight: 600; /* Tailwind's font-semibold */-->
-<!--        }-->
-<!--        /* The hover effect is now handled directly by Tailwind classes on the links */-->
-
-<!--        /* Mobile-first approach for header and hamburger */-->
-<!--        .header-mobile {-->
-<!--            display: flex; /* Always show mobile header as flex */-->
-<!--            justify-content: space-between;-->
-<!--            align-items: center;-->
-<!--            padding: 1.5rem; /* p-6 */-->
-<!--            background-color: #ffffff; /* bg-white */-->
-<!--            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */-->
-<!--        }-->
-<!--        .hamburger-icon {-->
-<!--            display: flex; /* Always show burger icon as flex on mobile */-->
-<!--            cursor: pointer;-->
-<!--            flex-direction: column;-->
-<!--            justify-content: space-between;-->
-<!--            width: 30px;-->
-<!--            height: 20px;-->
-<!--            z-index: 50;-->
-<!--        }-->
-<!--        .hamburger-icon span {-->
-<!--            display: block;-->
-<!--            width: 100%;-->
-<!--            height: 3px;-->
-<!--            background-color: #000;-->
-<!--            border-radius: 2px;-->
-<!--            transition: all 0.3s ease-in-out;-->
-<!--        }-->
-
-<!--        /* Desktop overrides for header, sidebar, and hamburger */-->
-<!--        @media (min-width: 769px) { /* md: breakpoint and up */-->
-<!--            .header-mobile {-->
-<!--                display: none; /* Hide mobile header on desktop */-->
-<!--            }-->
-<!--            .sidebar {-->
-<!--                display: flex; /* Show desktop sidebar */-->
-<!--            }-->
-<!--            .hamburger-icon {-->
-<!--                display: none; /* Hide burger on desktop */-->
-<!--            }-->
-<!--        }-->
-
-<!--        /* Mobile menu specific styles */-->
-<!--        .mobile-menu {-->
-<!--            display: none; /* Hidden by default */-->
-<!--            position: fixed; /* Fixed to cover the whole screen */-->
-<!--            top: 0;-->
-<!--            left: 0;-->
-<!--            width: 100%;-->
-<!--            height: 100vh;-->
-<!--            background-color: rgba(255, 255, 255, 0.98); /* Near-opaque white overlay */-->
-<!--            flex-direction: column;-->
-<!--            align-items: center;-->
-<!--            justify-content: center;-->
-<!--            z-index: 40;-->
-<!--            transform: translateX(100%); /* Start off-screen */-->
-<!--            transition: transform 0.3s ease-in-out;-->
-<!--        }-->
-<!--        .mobile-menu.open {-->
-<!--            transform: translateX(0); /* Slide in */-->
-<!--            display: flex; /* Show when open */-->
-<!--        }-->
-<!--        .mobile-menu a {-->
-<!--            padding: 1rem;-->
-<!--            font-size: 1.5rem;-->
-<!--            text-decoration: none;-->
-<!--            width: 100%;-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        /* Poster specific styles for index.html */-->
-<!--        .poster-container {-->
-<!--            width: 100%;-->
-<!--            max-width: 400px; /* Adjust as needed */-->
-<!--            margin: auto;-->
-<!--            text-align: center;-->
-<!--        }-->
-<!--        .poster-image {-->
-<!--            width: 100%;-->
-<!--            height: auto;-->
-<!--            object-fit: contain;-->
-<!--        }-->
-<!--        .lower-header {-->
-<!--            margin-top: 4rem; /* Adjust this value to control how much lower the second header is */-->
-<!--        }-->
-<!--        @media (min-width: 1024px) { /* lg breakpoint */-->
-<!--            .lower-header {-->
-<!--                margin-top: 5rem; /* Further adjust for larger screens if needed */-->
-<!--            }-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body class="min-h-screen flex flex-col">-->
-<!--&lt;!&ndash; Mobile Header (only visible on small screens) &ndash;&gt;-->
-<!--<header class="header-mobile md:hidden" id="mobileHeader">-->
-<!--    <a href="index.html" class="text-xl font-bold uppercase">AMANDA CARMONA BOSCH</a>-->
-<!--    <div class="hamburger-icon" id="hamburger-mobile">-->
-<!--        <span></span>-->
-<!--        <span></span>-->
-<!--        <span></span>-->
-<!--    </div>-->
-<!--</header>-->
-
-<!--&lt;!&ndash; Mobile Menu Overlay &ndash;&gt;-->
-<!--<nav class="mobile-menu" id="mobileMenu">-->
-<!--    <div class="absolute top-6 right-6 cursor-pointer text-3xl" id="closeMobileMenu">&times;</div>-->
-<!--    <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>-->
-<!--    <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>-->
-<!--    <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>-->
-<!--    <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>-->
-<!--    <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>-->
-<!--</nav>-->
-
-<!--&lt;!&ndash; Desktop Layout: Sidebar + Main Content &ndash;&gt;-->
-<!--<div class="desktop-layout flex flex-grow">-->
-<!--    &lt;!&ndash; Left Sidebar Navigation (Desktop Only) &ndash;&gt;-->
-<!--    <aside class="sidebar hidden md:flex flex-col items-start p-8 w-64 bg-white">-->
-<!--        <a href="index.html" class="text-xl font-bold uppercase mb-12 text-black hover:text-gray-600">AMANDA CARMONA BOSCH</a>-->
-<!--        <nav class="flex flex-col space-y-4">-->
-<!--            <a href="obras.html" class="nav-link uppercase text-gray-600 hover:text-black">OBRAS DE ARTE</a>-->
-<!--            <a href="exposiciones.html" class="nav-link uppercase text-gray-600 hover:text-black">EXPOSICIONES</a>-->
-<!--            <a href="biografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIOGRAFÍA</a>-->
-<!--            <a href="bibliografia.html" class="nav-link uppercase text-gray-600 hover:text-black">BIBLIOGRAFÍA</a>-->
-<!--            <a href="contacto.html" class="nav-link uppercase text-gray-600 hover:text-black">CONTACTO</a>-->
-<!--        </nav>-->
-<!--    </aside>-->
-
-<!--    &lt;!&ndash; Main Content Area (Landing Page Specific) &ndash;&gt;-->
-<!--    <main class="artworks-content-area flex-grow flex flex-col items-center justify-start p-6 md:p-10 ml-0 md:ml-16">-->
-<!--        <div class="container mt-3">-->
-<!--            <div class="row flex flex-col lg:flex-row justify-center items-start gap-8">-->
-<!--                <div class="col-lg-6 w-full lg:w-1/2">-->
-<!--                    &lt;!&ndash; Erster Header &ndash;&gt;-->
-<!--                    <div class="poster-container">-->
-<!--                        <h3 class="text-lg font-semibold mb-2">05.06.2025 - 11.07.2025</h3>-->
-<!--                        <h3 class="text-xl font-bold mb-2"><em>PUERTO RICAN WOMEN IN ARTS</em></h3>-->
-<!--                        <h5 class="text-gray-600 text-sm mb-4">GALERÍA DELTA DE PICO, LIGA DE ARTE DE SAN JUAN</h5>-->
-<!--                        <img class="poster-image" src="images/exhibiciones-actuales/puertorican-woman-in-arts.jpeg" alt="PUERTO RICAN WOMEN IN ARTS">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-6 w-full lg:w-1/2 lower-header">-->
-<!--                    &lt;!&ndash; Zweiter Header &ndash;&gt;-->
-<!--                    <div class="poster-container">-->
-<!--                        <h3 class="text-lg font-semibold mb-2">08.10.2026 - 28.01.2026</h3>-->
-<!--                        <h3 class="text-xl font-bold mb-2"><em>EL CUERPO, REBELARSE O REVELARSE</em></h3>-->
-<!--                        <h5 class="text-gray-600 text-sm mb-4">MUSEO DE LAS AMÉRICAS, SAN JUAN, PUERTO RICO</h5>-->
-<!--                        <img class="poster-image" src="images/weighting-love-or-gold/Madre-acuarela-1978-80-23x15.5cm-scaled.jpg" alt="AMAMANTAR">-->
-<!--                        <div class="card-body">-->
-<!--                            <h5 class="text-base font-semibold mt-2">AMAMANTAR<BR>1978, ACUARELA, 23 CM X 15.5 CM</h5>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </main>-->
-<!--</div>-->
-
