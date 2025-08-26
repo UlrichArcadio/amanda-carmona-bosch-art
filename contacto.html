@@ -94,51 +94,8 @@
             /* Default color and hover for mobile links handled by Tailwind classes below */
         }
 
-        /* Contact page specific styles */
-        .contact-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 800px; /* Limit width for better readability */
-            /* REMOVED 'padding' and 'margin' from here to fix layout issues */
-        }
-        .contact-image {
-            width: 80%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+        /* Contact page custom styles removed as layout is now handled by Tailwind */
 
-        .contact-location-image {
-            width: 80%;
-            height: auto;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
-        .contact-location-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        /* Responsive adjustments for contact page */
-        @media (min-width: 640px) { /* sm breakpoint */
-            .contact-row {
-                flex-direction: row;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-            }
-            .contact-col-image {
-                flex: 1;
-            }
-            .contact-col-email {
-                flex: 1;
-            }
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -173,23 +130,19 @@
     </aside>
 
     <main class="artworks-content-area flex-grow flex justify-center p-6 md:p-10">
-        <div class="contact-section w-full max-w-6xl flex flex-col md:flex-row items-center md:items-stretch gap-8">
+        <div class="w-full max-w-4xl flex flex-col items-center gap-8 text-center">
 
-            <div class="relative w-full md:w-1/2 flex items-center justify-center bg-black rounded-lg">
+            <img src="images/taller/puerta-taller-a.jpg" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-auto object-cover rounded-lg shadow-lg" alt="PUERTA DEL TALLER">
 
-                    <img src="images/taller/puerta-taller-a.jpg" class="max-w-full max-h-full object-contain" alt="PUERTA DEL TALLER">
+            <a href="mailto:CARMONABOSCH@GMAIL.COM" class="text-xl sm:text-2xl font-semibold text-gray-800 hover:text-black hover:underline my-4">
+                CARMONABOSCH@GMAIL.COM
+            </a>
 
-
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-                    <a href="mailto:CARMONABOSCH@GMAIL.COM" class="text-white font-bold text-xl sm:text-2xl md:text-3xl break-words text-center px-4 hover:underline">
-                        CARMONABOSCH@GMAIL.COM
-                    </a>
-                </div>
+            <div class="w-full md:w-5/6 lg:w-3/4">
+                <img src="images/taller/Tallr-Cupey-Alto-scaled.jpg" class="w-full h-auto object-cover rounded-lg shadow-lg" alt="TALLER CUPEY ALTO">
+                <h3 class="text-lg font-bold mt-4 text-center"><strong>TALLER a</strong>, SAN JUAN</h3>
             </div>
-            <div class="w-full md:w-1/2 flex flex-col">
-                <img src="images/taller/Tallr-Cupey-Alto-scaled.jpg" class="w-full h-auto object-cover rounded-lg" alt="TALLER CUPEY ALTO">
-                <h3 class="text-lg font-bold mt-4 text-center"><strong>TALLER A</strong>, SAN JUAN</h3>
-            </div>
+
         </div>
     </main>
 </div>
